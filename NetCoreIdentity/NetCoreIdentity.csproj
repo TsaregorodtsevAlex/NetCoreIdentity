@@ -14,4 +14,18 @@
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\NetCoreIdentity.BusinessLogic\NetCoreIdentity.BusinessLogic.csproj" />
+    <ProjectReference Include="..\NetCoreIdentity.DataAccess\NetCoreIdentity.DataAccess.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="NetCoreCQRS">
+      <HintPath>..\..\..\NetCore\NetCore\NetCoreCQRS\bin\Debug\netstandard2.0\NetCoreCQRS.dll</HintPath>
+    </Reference>
+    <Reference Include="NetCoreDataAccess">
+      <HintPath>..\..\..\NetCore\NetCore\NetCoreDataAccess\bin\Debug\netstandard2.0\NetCoreDataAccess.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>
