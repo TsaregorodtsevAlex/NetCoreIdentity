@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\NetCoreIdentity.DataAccess\NetCoreIdentity.DataAccess.csproj" />
   </ItemGroup>
 
@@ -17,6 +21,9 @@
     </Reference>
     <Reference Include="NetCoreDataAccess">
       <HintPath>..\..\..\NetCore\NetCore\NetCoreDataAccess\bin\Debug\netstandard2.0\NetCoreDataAccess.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions">
+      <HintPath>..\..\..\..\..\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.netcore.app\2.0.0\ref\netcoreapp2.0\System.Threading.Tasks.Extensions.dll</HintPath>
     </Reference>
   </ItemGroup>
 

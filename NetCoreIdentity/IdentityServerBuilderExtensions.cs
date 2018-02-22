@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using IdentityServer4.Extensions;
 using IdentityServer4.Models;
@@ -8,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using NetCoreCQRS;
 using NetCoreIdentity.BusinessLogic.Users;
 using NetCoreIdentity.BusinessLogic.UserClaims;
+using NetCoreIdentity.DataAccess;
 
 namespace NetCoreIdentity
 {
@@ -28,16 +30,15 @@ namespace NetCoreIdentity
             _executor = executor;
         }
 
-        public Task GetProfileDataAsync(ProfileDataRequestContext context)
+        public async Task GetProfileDataAsync(ProfileDataRequestContext context)
         {
             var sujectId = context.Subject.GetSubjectId();
             var userId = Guid.Parse(sujectId);
-            context.IssuedClaims = _executor
+            var userClaims = await _executor
                 .GetQuery<GetUserClaimsByUserIdQuery>()
-                .Process(q => q.Execute(userId), userClaim => userClaim.ToClaim())
-                .ToList();
+                .ProcessAsync<UserClaim, Claim>(async q => await q.Execute(userId), c => c.ToClaim());
 
-            return Task.FromResult(0);
+            context.IssuedClaims = userClaims.ToList();
         }
 
         public Task IsActiveAsync(IsActiveContext context)
