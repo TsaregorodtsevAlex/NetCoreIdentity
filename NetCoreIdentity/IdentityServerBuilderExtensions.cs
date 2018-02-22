@@ -36,7 +36,7 @@ namespace NetCoreIdentity
             var userId = Guid.Parse(sujectId);
             var userClaims = await _executor
                 .GetQuery<GetUserClaimsByUserIdQuery>()
-                .ProcessAsync<UserClaim, Claim>(async q => await q.Execute(userId), c => c.ToClaim());
+                .ProcessAsync<UserClaim, Claim>(async q => await q.ExecuteAsync(userId), c => c.ToClaim());
 
             context.IssuedClaims = userClaims.ToList();
         }
