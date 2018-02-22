@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\NetCoreIdentity.DataAccess\NetCoreIdentity.DataAccess.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Microsoft.Extensions.Identity.Stores">
+      <HintPath>..\..\..\..\..\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.extensions.identity.stores\2.0.0\lib\netstandard2.0\Microsoft.Extensions.Identity.Stores.dll</HintPath>
+    </Reference>
+    <Reference Include="NetCoreCQRS">
+      <HintPath>..\..\..\NetCore\NetCore\NetCoreCQRS\bin\Debug\netstandard2.0\NetCoreCQRS.dll</HintPath>
+    </Reference>
+    <Reference Include="NetCoreDataAccess">
+      <HintPath>..\..\..\NetCore\NetCore\NetCoreDataAccess\bin\Debug\netstandard2.0\NetCoreDataAccess.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>
