@@ -17,6 +17,7 @@ namespace NetCoreIdentity
     {
         public static IIdentityServerBuilder AddCustomUserStore(this IIdentityServerBuilder builder)
         {
+            builder.AddProfileService<UserProfileService>();
             return builder;
         }
     }
