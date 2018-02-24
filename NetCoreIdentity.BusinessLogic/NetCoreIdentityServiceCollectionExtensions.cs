@@ -1,0 +1,37 @@
+﻿using Microsoft.Extensions.DependencyInjection;
+using NetCoreIdentity.BusinessLogic.UserClaims;
+using NetCoreIdentity.BusinessLogic.Users;
+
+namespace NetCoreIdentity.BusinessLogic
+{
+    public static class NetCoreIdentityServiceCollectionExtensions
+    {
+        public static IServiceCollection AddNetCoreIdentityBusinessLogicQueries(this IServiceCollection serviceCollection)
+        {
+            AddUsersQueries(serviceCollection);
+            AddUserClaimsQueries(serviceCollection);
+            return serviceCollection;
+        }
+
+        public static IServiceCollection AddNetCoreIdentityBusinessLogicCommands(this IServiceCollection serviceCollection)
+        {
+            return serviceCollection;
+        }
+
+        private static void AddUsersQueries(IServiceCollection serviceCollection)
+        {
+            serviceCollection
+                .AddTransient<GetUserByEmailQuery>()
+                .AddTransient<GetUserByIdQuery>()
+                .AddTransient<GetUserByNameQuery>()
+                .AddTransient<IsUserActiveCheckQuery>()
+                .AddTransient<IsUserCredentialsValidQuery>();
+        }
+
+        private static void AddUserClaimsQueries(IServiceCollection serviceCollection)
+        {
+            serviceCollection
+                .AddTransient<GetUserClaimsByUserIdQuery>();
+        }
+    }
+}

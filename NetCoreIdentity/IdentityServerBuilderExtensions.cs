@@ -42,6 +42,7 @@ namespace NetCoreIdentity
         }
 
         public Task IsActiveAsync(IsActiveContext context)
+
         {
             var subject = context.Subject.GetSubjectId();
             var userId = Guid.Parse(subject);

@@ -18,11 +18,6 @@ namespace NetCoreIdentity.BusinessLogic.UserClaims
                 .Where(u => u.UserId == userId)
                 .ToListAsync();
 
-            if (userClaims == null)
-            {
-                //todo throw error
-            }
-
             return userClaims;
         }
     }

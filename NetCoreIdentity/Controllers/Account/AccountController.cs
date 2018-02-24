@@ -18,6 +18,8 @@ using IdentityServer4.Test;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using NetCoreCQRS;
+using NetCoreIdentity.BusinessLogic.Users;
 using HttpContextExtensions = IdentityServer4.Extensions.HttpContextExtensions;
 using PrincipalExtensions = IdentityServer4.Extensions.PrincipalExtensions;
 
@@ -26,27 +28,32 @@ namespace NetCoreIdentity.Controllers.Account
     [SecurityHeaders]
     public class AccountController : Controller
     {
-        private readonly TestUserStore _users;
+        private readonly TestUserStore _users_need_remove;
         private readonly IIdentityServerInteractionService _interaction;
         private readonly IClientStore _clientStore;
         private readonly IAuthenticationSchemeProvider _schemeProvider;
         private readonly IEventService _events;
+
+        private readonly IExecutor _executor;
 
         public AccountController(
             IIdentityServerInteractionService interaction,
             IClientStore clientStore,
             IAuthenticationSchemeProvider schemeProvider,
             IEventService events,
+            IExecutor executor,
             TestUserStore users = null)
         {
             // if the TestUserStore is not in DI, then we'll just use the global users collection
             // this is where you would plug in your own custom identity management library (e.g. ASP.NET Identity)
-            _users = users ?? new TestUserStore(TestUsers.Users);
+            _users_need_remove = users ?? new TestUserStore(TestUsers.Users);
 
             _interaction = interaction;
             _clientStore = clientStore;
             _schemeProvider = schemeProvider;
             _events = events;
+
+            _executor = executor;
         }
 
         /// <summary>
@@ -84,7 +91,7 @@ namespace NetCoreIdentity.Controllers.Account
                     // denied the consent (even if this client does not require consent).
                     // this will send back an access denied OIDC error response to the client.
                     await _interaction.GrantConsentAsync(context, ConsentResponse.Denied);
-                    
+
                     // we can trust model.ReturnUrl since GetAuthorizationContextAsync returned non-null
                     return Redirect(model.ReturnUrl);
                 }
@@ -98,10 +105,11 @@ namespace NetCoreIdentity.Controllers.Account
             if (ModelState.IsValid)
             {
                 // validate username/password against in-memory store
-                if (_users.ValidateCredentials(model.Username, model.Password))
+                var isUserCredentialsValid = _executor.GetQuery<IsUserCredentialsValidQuery>().Process(q => q.Execute(model.Username, model.Password));
+                if (isUserCredentialsValid)
                 {
-                    var user = _users.FindByUsername(model.Username);
-                    await _events.RaiseAsync(new UserLoginSuccessEvent(user.Username, user.SubjectId, user.Username));
+                    var user = _executor.GetQuery<GetUserByNameQuery>().Process(q => q.Execute(model.Username));
+                    await _events.RaiseAsync(new UserLoginSuccessEvent(user.UserName, user.Id.ToString(), user.UserName));
 
                     // only set explicit expiration here if user chooses "remember me". 
                     // otherwise we rely upon expiration configured in cookie middleware.
@@ -116,7 +124,7 @@ namespace NetCoreIdentity.Controllers.Account
                     };
 
                     // issue authentication cookie with subject ID and username
-                    await AuthenticationManagerExtensions.SignInAsync(HttpContext, user.SubjectId, user.Username, props);
+                    await AuthenticationManagerExtensions.SignInAsync(HttpContext, user.Id.ToString(), user.UserName, props);
 
                     // make sure the returnUrl is still valid, and if so redirect back to authorize endpoint or a local page
                     // the IsLocalUrl check is only necessary if you want to support additional local pages, otherwise IsValidReturnUrl is more strict
@@ -249,7 +257,7 @@ namespace NetCoreIdentity.Controllers.Account
                 await HttpContext.SignOutAsync();
 
                 // raise the logout event
-                await _events.RaiseAsync(new UserLogoutSuccessEvent(PrincipalExtensions.GetSubjectId((IPrincipal) User), PrincipalExtensions.GetDisplayName(User)));
+                await _events.RaiseAsync(new UserLogoutSuccessEvent(PrincipalExtensions.GetSubjectId((IPrincipal)User), PrincipalExtensions.GetDisplayName(User)));
             }
 
             // check if we need to trigger sign-out at an upstream identity provider
@@ -457,14 +465,14 @@ namespace NetCoreIdentity.Controllers.Account
             var providerUserId = userIdClaim.Value;
 
             // find external user
-            var user = _users.FindByExternalProvider(provider, providerUserId);
+            var user = _users_need_remove.FindByExternalProvider(provider, providerUserId);
 
             return (user, provider, providerUserId, claims);
         }
 
         private TestUser AutoProvisionUser(string provider, string providerUserId, IEnumerable<Claim> claims)
         {
-            var user = _users.AutoProvisionUser(provider, providerUserId, claims.ToList());
+            var user = _users_need_remove.AutoProvisionUser(provider, providerUserId, claims.ToList());
             return user;
         }
 

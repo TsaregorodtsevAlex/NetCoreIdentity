@@ -5,8 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0" />
-    <PackageReference Include="IdentityServer4" Version="2.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.5" />
+    <PackageReference Include="IdentityServer4" Version="2.1.2" />
     <PackageReference Include="System.Security.Claims" Version="4.3.0" />
   </ItemGroup>
 
@@ -25,6 +25,9 @@
     </Reference>
     <Reference Include="NetCoreDataAccess">
       <HintPath>..\..\..\NetCore\NetCore\NetCoreDataAccess\bin\Debug\netstandard2.0\NetCoreDataAccess.dll</HintPath>
+    </Reference>
+    <Reference Include="NetCoreDI">
+      <HintPath>..\..\..\NetCore\NetCore\NetCoreDI\bin\Debug\netstandard2.0\NetCoreDI.dll</HintPath>
     </Reference>
   </ItemGroup>
 
