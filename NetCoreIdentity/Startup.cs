@@ -26,7 +26,7 @@ namespace NetCoreIdentity
         {
             services
                 .AddDbContext<NetCoreIdentityDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("NetCoreIdentityServer")))
-                .AddTransient<BaseDbContext, NetCoreIdentityDbContext>()
+                .AddTransient<DbContext, NetCoreIdentityDbContext>()
                 .AddTransient<IExecutor, Executor>()
                 .AddTransient<IAmbientContext, AmbientContext>()
                 .AddTransient<IUnitOfWork, UnitOfWork>()

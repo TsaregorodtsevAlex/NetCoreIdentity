@@ -1,5 +1,5 @@
 ﻿using System;
-using NetCoreCQRS;
+using NetCoreCQRS.Queries;
 using NetCoreIdentity.DataAccess;
 
 namespace NetCoreIdentity.BusinessLogic.Users
