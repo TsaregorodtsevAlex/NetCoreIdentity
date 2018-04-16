@@ -6,7 +6,7 @@ using NetCoreDataAccess;
 
 namespace NetCoreIdentity.DataAccess
 {
-    public class NetCoreIdentityDbContext: BaseDbContext
+    public class NetCoreIdentityDbContext: DbContext
     {
         public NetCoreIdentityDbContext(DbContextOptions options) : base(options)
         {
