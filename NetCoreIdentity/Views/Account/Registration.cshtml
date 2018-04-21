@@ -1,0 +1,64 @@
+﻿@using NetCoreIdentity.Controllers.Account
+@model NetCoreIdentity.Controllers.Account.Users.UserRegistrationModel
+
+<div class="login-page">
+    <div class="page-header">
+        <h1>Login</h1>
+    </div>
+
+    @Html.Partial("_ValidationSummary")
+
+    <div class="row">
+            <div class="col-sm-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Local Login</h3>
+                    </div>
+                    <div class="panel-body">
+
+                        <form asp-route="Login">
+
+                            <fieldset>
+                                <div class="form-group">
+                                    <label asp-for="FirstName"></label>
+                                    <input class="form-control" placeholder="FirstName" asp-for="FirstName" autofocus>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="MiddleName"></label>
+                                    <input class="form-control" placeholder="MiddleName" asp-for="MiddleName">
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="SecondName"></label>
+                                    <input class="form-control" placeholder="SecondName" asp-for="SecondName">
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Gender"></label>
+                                    <input class="form-control" placeholder="Gender" asp-for="Gender">
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Password"></label>
+                                    <input type="password" class="form-control" placeholder="Password" asp-for="Password" autocomplete="off">
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="ConfirmedPassword"></label>
+                                    <input type="password" class="form-control" placeholder="ConfirmedPassword" asp-for="ConfirmedPassword" autocomplete="off">
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="PhoneNumber"></label>
+                                    <input class="form-control" placeholder="PhoneNumber" asp-for="PhoneNumber">
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Email"></label>
+                                    <input class="form-control" placeholder="Email" asp-for="Email">
+                                </div>
+                                <div class="form-group">
+                                    <button class="btn btn-primary" name="button" value="login">Registration</button>
+                                    <button class="btn btn-default" name="button" value="cancel">Cancel</button>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+    </div>
+</div>

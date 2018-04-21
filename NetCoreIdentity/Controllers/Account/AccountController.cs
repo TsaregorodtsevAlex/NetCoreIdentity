@@ -20,6 +20,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NetCoreCQRS;
 using NetCoreIdentity.BusinessLogic.Users;
+using NetCoreIdentity.Controllers.Account.Users;
 using HttpContextExtensions = IdentityServer4.Extensions.HttpContextExtensions;
 using PrincipalExtensions = IdentityServer4.Extensions.PrincipalExtensions;
 
@@ -54,6 +55,20 @@ namespace NetCoreIdentity.Controllers.Account
             _events = events;
 
             _executor = executor;
+        }
+
+        [HttpGet]
+        public ViewResult Registration()
+        {
+            return View(new UserRegistrationModel());
+        }
+
+        [HttpPost]
+        public ViewResult Registration(UserRegistrationModel userRegistrationModel)
+        {
+            var user = userRegistrationModel.ToUser;
+            _executor.GetCommand<CreateUserCommand>().Process(c => c.Execute(user));
+            return View(userRegistrationModel);
         }
 
         /// <summary>

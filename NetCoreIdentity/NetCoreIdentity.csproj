@@ -5,8 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.5" />
-    <PackageReference Include="IdentityServer4" Version="2.1.2" />
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.7" />
+    <PackageReference Include="IdentityServer4" Version="2.2.0" />
+    <PackageReference Include="NetCoreCQRS" Version="1.2.3" />
+    <PackageReference Include="NetCoreDataAccess" Version="1.4.1" />
+    <PackageReference Include="NetCoreDI" Version="1.0.0" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="2.0.1" />
     <PackageReference Include="System.Security.Claims" Version="4.3.0" />
   </ItemGroup>
 
@@ -17,18 +21,7 @@
   <ItemGroup>
     <ProjectReference Include="..\NetCoreIdentity.BusinessLogic\NetCoreIdentity.BusinessLogic.csproj" />
     <ProjectReference Include="..\NetCoreIdentity.DataAccess\NetCoreIdentity.DataAccess.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="NetCoreCQRS">
-      <HintPath>..\..\..\NetCore\NetCore\NetCoreCQRS\bin\Debug\netstandard2.0\NetCoreCQRS.dll</HintPath>
-    </Reference>
-    <Reference Include="NetCoreDataAccess">
-      <HintPath>..\..\..\NetCore\NetCore\NetCoreDataAccess\bin\Debug\netstandard2.0\NetCoreDataAccess.dll</HintPath>
-    </Reference>
-    <Reference Include="NetCoreDI">
-      <HintPath>..\..\..\NetCore\NetCore\NetCoreDI\bin\Debug\netstandard2.0\NetCoreDI.dll</HintPath>
-    </Reference>
+    <ProjectReference Include="..\NetCoreIdentityDomain\NetCoreIdentityDomain.csproj" />
   </ItemGroup>
 
 </Project>

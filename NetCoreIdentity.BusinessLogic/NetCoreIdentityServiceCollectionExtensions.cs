@@ -9,6 +9,7 @@ namespace NetCoreIdentity.BusinessLogic
         public static IServiceCollection AddNetCoreIdentityBusinessLogicQueries(this IServiceCollection serviceCollection)
         {
             AddUsersQueries(serviceCollection);
+            AddUsersCommands(serviceCollection);
             AddUserClaimsQueries(serviceCollection);
             return serviceCollection;
         }
@@ -26,6 +27,12 @@ namespace NetCoreIdentity.BusinessLogic
                 .AddTransient<GetUserByNameQuery>()
                 .AddTransient<IsUserActiveCheckQuery>()
                 .AddTransient<IsUserCredentialsValidQuery>();
+        }
+
+        private static void AddUsersCommands(IServiceCollection serviceCollection)
+        {
+            serviceCollection
+                .AddTransient<CreateUserCommand>();
         }
 
         private static void AddUserClaimsQueries(IServiceCollection serviceCollection)

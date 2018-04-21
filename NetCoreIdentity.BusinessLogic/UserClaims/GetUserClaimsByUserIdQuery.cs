@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using NetCoreCQRS;
 using NetCoreIdentity.DataAccess;
 using System.Threading.Tasks;
+using NetCoreCQRS.Queries;
 
 namespace NetCoreIdentity.BusinessLogic.UserClaims
 {

@@ -11,15 +11,15 @@ using System;
 namespace NetCoreIdentity.DataAccess.Migrations
 {
     [DbContext(typeof(NetCoreIdentityDbContext))]
-    [Migration("20180222200025_Init")]
+    [Migration("20180421180542_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.0.1-rtm-125")
-                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn)
+                .HasAnnotation("ProductVersion", "2.0.2-rtm-10011");
 
             modelBuilder.Entity("NetCoreIdentity.DataAccess.User", b =>
                 {
@@ -33,6 +33,8 @@ namespace NetCoreIdentity.DataAccess.Migrations
                     b.Property<string>("Email");
 
                     b.Property<bool>("EmailConfirmed");
+
+                    b.Property<bool>("IsActive");
 
                     b.Property<bool>("LockoutEnabled");
 
