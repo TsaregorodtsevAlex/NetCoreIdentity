@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Security.Claims;
+using IdentityServer4;
 using IdentityServer4.Test;
 using IdentityServer4.Models;
 
@@ -8,25 +9,6 @@ namespace NetCoreIdentity
 {
     public static class Config
     {
-
-        public static List<TestUser> GetUsers()
-        {
-            return new List<TestUser>
-            {
-                new TestUser
-                {
-                    SubjectId = "1",
-                    Username = "Alex",
-                    Password = "Alex",
-                    Claims = new List<Claim>
-                    {
-                        new Claim("given_name", "Alex"),
-                        new Claim("family_name", "Alex")
-                    }
-                }
-            };
-        }
-
         public static IEnumerable<IdentityResource> GetIdentityResources() 
         {
             return new List<IdentityResource>
@@ -36,9 +18,48 @@ namespace NetCoreIdentity
             };
         }
 
+        public static List<ApiResource> GetApiResources()
+        {
+            return new List<ApiResource>
+            {
+                new ApiResource("examinationapi", "Examination API")
+            };
+        }
+
         public static List<Client> GetClients() 
         {
-            return new List<Client>();
+            return new List<Client>
+            {
+                new Client
+                {
+                    ClientName = "Examination client",
+                    ClientId = "examinationclient",
+                    AllowedGrantTypes = new[] {GrantType.Hybrid},
+                    RedirectUris = new List<string>
+                    {
+                        "https://localhost:44317/signin-oidc"
+                    },
+                    AllowedScopes =
+                    {
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile,
+                        IdentityServerConstants.StandardScopes.Address,
+                        "roles",
+                        "examinationapi"
+                    },
+                    AlwaysSendClientClaims = true,
+                    AlwaysIncludeUserClaimsInIdToken = true,
+                    RequireClientSecret = false,
+                    ClientSecrets = new List<Secret>
+                    {
+                        new Secret("secret".Sha256())
+                    },
+                    PostLogoutRedirectUris = new List<string>
+                    {
+                        "https://localhost:44317/signout-callback-oidc"
+                    }
+                }
+            };
         }
     }
 }

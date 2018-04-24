@@ -22,7 +22,7 @@ namespace NetCoreIdentity.Controllers.Account.Users
         public User ToUser =>
             new User
             {
-               UserName = FirstName,
+                UserName = FirstName,
                 Email = Email,
                 PhoneNumber = PhoneNumber,
                 PasswordHash = Password,

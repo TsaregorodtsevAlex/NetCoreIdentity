@@ -32,7 +32,8 @@ namespace NetCoreIdentity.BusinessLogic
         private static void AddUsersCommands(IServiceCollection serviceCollection)
         {
             serviceCollection
-                .AddTransient<CreateUserCommand>();
+                .AddTransient<CreateUserCommand>()
+                .AddTransient<CreateUserClaimCommand>();
         }
 
         private static void AddUserClaimsQueries(IServiceCollection serviceCollection)

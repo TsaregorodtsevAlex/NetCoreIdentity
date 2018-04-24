@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using System.IO;
+using System.Security;
+using System.Security.Cryptography.X509Certificates;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -39,9 +42,12 @@ namespace NetCoreIdentity
             services.AddMvc();
 
             services.AddIdentityServer()
-                    .AddCustomUserStore()
-                    .AddInMemoryIdentityResources(Config.GetIdentityResources())
-                    .AddInMemoryClients(Config.GetClients());
+                //.AddSigningCredential(new X509Certificate2(Path.Combine(@"C:\Users\Alex\Desktop", "localhost.pfx"), "123"))
+                .AddDeveloperSigningCredential()
+                .AddCustomUserStore()
+                .AddInMemoryIdentityResources(Config.GetIdentityResources())
+                .AddInMemoryApiResources(Config.GetApiResources())
+                .AddInMemoryClients(Config.GetClients());
 
             var serviceProvider = services.BuildServiceProvider();
             var _ = new AmbientContext(serviceProvider);

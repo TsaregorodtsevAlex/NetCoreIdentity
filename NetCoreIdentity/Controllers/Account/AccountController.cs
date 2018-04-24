@@ -19,8 +19,10 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NetCoreCQRS;
+using NetCoreIdentity.BusinessLogic.UserClaims;
 using NetCoreIdentity.BusinessLogic.Users;
 using NetCoreIdentity.Controllers.Account.Users;
+using NetCoreIdentity.DataAccess.Enums;
 using HttpContextExtensions = IdentityServer4.Extensions.HttpContextExtensions;
 using PrincipalExtensions = IdentityServer4.Extensions.PrincipalExtensions;
 
@@ -67,7 +69,15 @@ namespace NetCoreIdentity.Controllers.Account
         public ViewResult Registration(UserRegistrationModel userRegistrationModel)
         {
             var user = userRegistrationModel.ToUser;
-            _executor.GetCommand<CreateUserCommand>().Process(c => c.Execute(user));
+
+            _executor
+                .CommandChain()
+                .AddCommand<CreateUserCommand>(c => c.Execute(user))
+                .AddCommand<CreateUserClaimCommand>(c => c.Execute(new CreateUserClaimRequest { UserId = user.Id, ClaimName = "name", ClaimValue = user.UserName }))
+                .AddCommand<CreateUserClaimCommand>(c => c.Execute(new CreateUserClaimRequest { UserId = user.Id, ClaimName = "role", ClaimValue = "superadmin" }))
+                .AddCommand<CreateUserClaimCommand>(c => c.Execute(new CreateUserClaimRequest { UserId = user.Id, ClaimName = "gender", ClaimValue = Enum.GetName(typeof(GenderType), userRegistrationModel.Gender) }))
+                .ExecuteAllWithTransaction();
+
             return View(userRegistrationModel);
         }
 
