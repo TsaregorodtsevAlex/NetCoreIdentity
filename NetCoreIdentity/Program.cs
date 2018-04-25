@@ -22,7 +22,7 @@ namespace NetCoreIdentity
                 .UseKestrel()
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseStartup<Startup>()
-                .UseUrls("http://localhost:44332/")
+                .UseUrls("http://localhost:44312/")
                 .Build();
     }
 }
