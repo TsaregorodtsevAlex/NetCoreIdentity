@@ -11,9 +11,10 @@ using System;
 namespace NetCoreIdentity.DataAccess.Migrations
 {
     [DbContext(typeof(NetCoreIdentityDbContext))]
-    partial class NetCoreIdentityDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180427193937_ExtendUserEntity")]
+    partial class ExtendUserEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -29,7 +30,7 @@ namespace NetCoreIdentity.DataAccess.Migrations
 
                     b.Property<string>("Address");
 
-                    b.Property<DateTime?>("Birthdate");
+                    b.Property<DateTime>("Birthdate");
 
                     b.Property<string>("ConcurrencyStamp");
 

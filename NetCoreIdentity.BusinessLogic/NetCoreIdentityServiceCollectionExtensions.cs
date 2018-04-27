@@ -25,6 +25,7 @@ namespace NetCoreIdentity.BusinessLogic
                 .AddTransient<GetUserByEmailQuery>()
                 .AddTransient<GetUserByIdQuery>()
                 .AddTransient<GetUserByNameQuery>()
+                .AddTransient<GetUsersPagedListQuery>()
                 .AddTransient<IsUserActiveCheckQuery>()
                 .AddTransient<IsUserCredentialsValidQuery>();
         }

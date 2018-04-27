@@ -11,9 +11,10 @@ using System;
 namespace NetCoreIdentity.DataAccess.Migrations
 {
     [DbContext(typeof(NetCoreIdentityDbContext))]
-    partial class NetCoreIdentityDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180427195001_Birthdate")]
+    partial class Birthdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
