@@ -10,7 +10,7 @@ namespace NetCoreIdentity.Controllers.Api
     [Route("api/roles")]
     public class RoleController : BaseApiController
     {
-        // GET: api/Role
+        // GET: api/roles/getRoles
         [HttpPost]
         [Route("getRoles")]
         public Result<List<RoleDto>> GetRoles()

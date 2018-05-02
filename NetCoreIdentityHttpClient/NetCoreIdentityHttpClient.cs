@@ -52,9 +52,19 @@ namespace NetCoreIdentityHttpClient
             return await ProcessPostRequest<Result<bool>, Guid>("api/users/delete", userId);
         }
 
+        public async ValueTask<Result<List<RoleDto>>> GetRoles()
+        {
+            return await ProcessPostRequest<Result<List<RoleDto>>>("api/roles/getRoles");
+        }
+
         private async ValueTask<TResponse> ProcessGetRequest<TResponse, TRequest>(string apiUri, TRequest request)
         {
             return await ProcessRequest<TResponse, TRequest>(request, (httpClient, byteContent) => httpClient.GetAsync(apiUri).Result);
+        }
+
+        private async ValueTask<TResponse> ProcessPostRequest<TResponse>(string apiUri)
+        {
+            return await ProcessRequest<TResponse>((httpClient) => httpClient.PostAsync(apiUri, new ByteArrayContent(new byte[0])).Result);
         }
 
         private async ValueTask<TResponse> ProcessPostRequest<TResponse, TRequest>(string apiUri, TRequest request)
@@ -73,6 +83,22 @@ namespace NetCoreIdentityHttpClient
 
             //var httpClientresponse = httpClient.PostAsync(apiUri, byteContent).Result;
             var httpClientresponse = func(httpClient, byteContent);
+            if (!httpClientresponse.IsSuccessStatusCode)
+            {
+                throw new Exception("Error");
+            }
+
+            var jsonResponse = await httpClientresponse.Content.ReadAsStringAsync();
+            var response = JsonConvert.DeserializeObject<TResponse>(jsonResponse);
+
+            return response;
+        }
+
+        private async ValueTask<TResponse> ProcessRequest<TResponse>(Func<HttpClient, HttpResponseMessage> func)
+        {
+            var httpClient = await _httpClient.GetHttpClient();
+
+            var httpClientresponse = func(httpClient);
             if (!httpClientresponse.IsSuccessStatusCode)
             {
                 throw new Exception("Error");
