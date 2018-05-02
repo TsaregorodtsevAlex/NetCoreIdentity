@@ -13,6 +13,9 @@ namespace UnitTestProject1
             var client = new NetCoreIdentityHttpClient.NetCoreIdentityHttpClient(null);
             var response = await client.GetAllUsers();
             response.Should().NotBeNull();
+            response.IsFailure.Should().BeFalse(response.Error);
+            response.Value.TotalCount.Should().BeGreaterThan(0);
+            response.Value.Items.Length.Should().BeGreaterThan(0);
         }
     }
 }

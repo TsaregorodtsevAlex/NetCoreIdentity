@@ -84,7 +84,7 @@ namespace NetCoreIdentityHttpClient
             return response;
         }
 
-        public async Task<PagedListResponse<UserDto>> GetAllUsers()
+        public async Task<Result<PagedListResponse<UserDto>>> GetAllUsers()
         {
             var client = await _httpClient.GetHttpClient();
             var request = new GetUsersPagedListRequest
@@ -123,7 +123,7 @@ namespace NetCoreIdentityHttpClient
             }
 
             var jsonResponse = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-            var identityUsers = JsonConvert.DeserializeObject<PagedListResponse<UserDto>>(jsonResponse);
+            var identityUsers = JsonConvert.DeserializeObject<Result<PagedListResponse<UserDto>>>(jsonResponse);
             return identityUsers;
         }
     }
