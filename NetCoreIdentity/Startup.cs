@@ -29,14 +29,14 @@ namespace NetCoreIdentity
         {
             services
                 //.AddDbContext<NetCoreIdentityDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("NetCoreIdentityServer")))
-                .AddDbContext<NetCoreIdentityDbContext>(options => options.UseNpgsql(Configuration.GetConnectionString("NetCoreIdentityServer")))
+                .AddDbContext<NetCoreIdentityDbContext>(options =>
+                    options.UseNpgsql(Configuration.GetConnectionString("NetCoreIdentityServer")))
                 .AddTransient<DbContext, NetCoreIdentityDbContext>()
                 .AddTransient<IExecutor, Executor>()
                 .AddTransient<IAmbientContext, AmbientContext>()
                 .AddTransient<IUnitOfWork, UnitOfWork>()
                 .AddTransient<IObjectResolver, ObjectResolver>()
-                .AddNetCoreIdentityBusinessLogicQueries()
-                .AddNetCoreIdentityBusinessLogicCommands();
+                .AddNetCoreIdentityBusinessLogicDependencies();
 
 
             services.AddMvc();

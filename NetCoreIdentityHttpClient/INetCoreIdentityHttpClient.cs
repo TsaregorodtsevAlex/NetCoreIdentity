@@ -1,7 +1,18 @@
-﻿namespace NetCoreIdentityHttpClient
+﻿using System;
+using System.Threading.Tasks;
+using NetCoreDataAccess.BaseResponses;
+using NetCoreDomain;
+using NetCoreIdentityHttpClient.Dtos;
+using NetCoreIdentityHttpClient.Requests;
+
+namespace NetCoreIdentityHttpClient
 {
     public interface INetCoreIdentityHttpClient
     {
-        
+        ValueTask<Result<PagedListResponse<UserDto>>> GetUsersPagedList(GetUsersPagedListRequest usersPagedListRequest);
+        ValueTask<Result<UserDto>> GetUserById(Guid userId);
+        ValueTask<Result<Guid>> CreateUser(UserDto userDto);
+        ValueTask<Result<bool>> UpdateUser(UserDto userDto);
+        ValueTask<Result<bool>> DeleteUser(Guid userId);
     }
 }

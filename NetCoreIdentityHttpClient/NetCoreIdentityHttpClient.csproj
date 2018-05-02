@@ -2,20 +2,22 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <Version>1.2.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="NetCoreDataAccess" Version="1.5.1" />
+    <PackageReference Include="NetCoreDomain" Version="1.0.1" />
     <PackageReference Include="NetCoreHttpClient" Version="1.1.0" />
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\NetCoreIdentity.BusinessLogic\NetCoreIdentity.BusinessLogic.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Reference Include="Microsoft.AspNetCore.Http.Abstractions">
       <HintPath>..\..\..\Users\Alex\.nuget\packages\microsoft.aspnetcore.http.abstractions\2.0.2\lib\netstandard2.0\Microsoft.AspNetCore.Http.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions">
+      <HintPath>..\..\..\Users\Alex\.nuget\packages\system.threading.tasks.extensions\4.4.0\lib\netstandard2.0\System.Threading.Tasks.Extensions.dll</HintPath>
     </Reference>
   </ItemGroup>
 

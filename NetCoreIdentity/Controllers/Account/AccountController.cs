@@ -72,7 +72,7 @@ namespace NetCoreIdentity.Controllers.Account
 
             _executor
                 .CommandChain()
-                .AddCommand<CreateUserCommand>(c => c.Execute(user))
+                .AddCommand<RegisterUserCommand>(c => c.Execute(user))
                 .AddCommand<CreateUserClaimCommand>(c => c.Execute(new CreateUserClaimRequest { UserId = user.Id, ClaimName = "name", ClaimValue = user.UserName }))
                 .AddCommand<CreateUserClaimCommand>(c => c.Execute(new CreateUserClaimRequest { UserId = user.Id, ClaimName = "role", ClaimValue = "superadmin" }))
                 .AddCommand<CreateUserClaimCommand>(c => c.Execute(new CreateUserClaimRequest { UserId = user.Id, ClaimName = "gender", ClaimValue = Enum.GetName(typeof(GenderType), userRegistrationModel.Gender) }))

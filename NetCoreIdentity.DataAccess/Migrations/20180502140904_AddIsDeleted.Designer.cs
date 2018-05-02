@@ -11,9 +11,10 @@ using System;
 namespace NetCoreIdentity.DataAccess.Migrations
 {
     [DbContext(typeof(NetCoreIdentityDbContext))]
-    partial class NetCoreIdentityDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180502140904_AddIsDeleted")]
+    partial class AddIsDeleted
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -33,7 +34,11 @@ namespace NetCoreIdentity.DataAccess.Migrations
 
                     b.Property<string>("NormalizedName");
 
+                    b.Property<Guid?>("UserId");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Roles");
                 });
@@ -112,26 +117,6 @@ namespace NetCoreIdentity.DataAccess.Migrations
                     b.ToTable("UserClaims");
                 });
 
-            modelBuilder.Entity("NetCoreIdentity.DataAccess.UserRole", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<bool>("IsDeleted");
-
-                    b.Property<Guid>("RoleId");
-
-                    b.Property<Guid>("UserId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("RoleId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("UserRoles");
-                });
-
             modelBuilder.Entity("NetCoreIdentity.DataAccess.UserRoleClaim", b =>
                 {
                     b.Property<int>("Id")
@@ -150,17 +135,11 @@ namespace NetCoreIdentity.DataAccess.Migrations
                     b.ToTable("UserRoleClaims");
                 });
 
-            modelBuilder.Entity("NetCoreIdentity.DataAccess.UserRole", b =>
+            modelBuilder.Entity("NetCoreIdentity.DataAccess.Role", b =>
                 {
-                    b.HasOne("NetCoreIdentity.DataAccess.Role", "Role")
-                        .WithMany()
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("NetCoreIdentity.DataAccess.User", "User")
-                        .WithMany("UserRoles")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                    b.HasOne("NetCoreIdentity.DataAccess.User")
+                        .WithMany("Roles")
+                        .HasForeignKey("UserId");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
-using NetCoreCQRS.Queries;
+using NetCoreCQRS.Commands;
 using NetCoreDomain;
 using NetCoreIdentity.BusinessLogic.Users.Dtos;
 using NetCoreIdentity.DataAccess;
 
 namespace NetCoreIdentity.BusinessLogic.Users
 {
-    public class GetUserByIdQuery : BaseQuery
+    public class UpdateUserCommand : BaseCommand
     {
-        public Result<UserDto> Execute(Guid userId)
+        public Result<bool> Execute(UserDto userDto)
         {
             try
             {
@@ -19,19 +19,21 @@ namespace NetCoreIdentity.BusinessLogic.Users
                     .AsQueryable()
                     .Include(u => u.UserRoles)
                     .ThenInclude(ur => ur.Role)
-                    .FirstOrDefault(u => u.Id == userId && u.IsActive && u.IsDeleted == false);
+                    .FirstOrDefault(u => u.Id == userDto.Id);
 
                 if (user == null)
                 {
-                    return Result<UserDto>.Fail(null, "User not found");
+                    return Result<bool>.Fail(false, "User not found");
                 }
 
-                var userDto = UserDto.MapFromUser(user);
-                return Result<UserDto>.Ok(userDto);
+                userDto.UpdateUser(user);
+                userRepository.Update(user);
+                Uow.SaveChanges();
+                return Result<bool>.Ok(true);
             }
             catch (Exception exception)
             {
-                return Result<UserDto>.Fail(null, $"{exception.Message}, {exception.StackTrace}");
+                return Result<bool>.Fail(false, $"{exception.Message}, {exception.StackTrace}");
             }
         }
     }

@@ -1,7 +1,10 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using NetCoreCQRS.Queries;
 using NetCoreDataAccess.BaseResponses;
 using NetCoreDataAccess.Externsions;
+using NetCoreDomain;
 using NetCoreIdentity.BusinessLogic.Users.Dtos;
 using NetCoreIdentity.BusinessLogic.Users.Requests;
 using NetCoreIdentity.DataAccess;
@@ -10,21 +13,31 @@ namespace NetCoreIdentity.BusinessLogic.Users
 {
     public class GetUsersPagedListQuery : BaseQuery
     {
-        public PagedListResponse<UserDto> Execute(GetUsersPagedListRequest request)
+        public Result<PagedListResponse<UserDto>> Execute(GetUsersPagedListRequest request)
         {
-            var response = new PagedListResponse<UserDto>();
+            try
+            {
+                var response = new PagedListResponse<UserDto>();
 
-            var userRepository = Uow.GetRepository<User>();
-            var usersQuery = userRepository.AsQueryable();
+                var userRepository = Uow.GetRepository<User>();
+                var usersQuery = userRepository.AsQueryable();
 
-            usersQuery = ProcessRequest(request, usersQuery);
+                usersQuery = ProcessRequest(request, usersQuery);
 
-            response.Items = usersQuery
-                .ApplyPagedListRequest(request, response)
-                .Select(UserDto.Map)
-                .ToArray();
+                response.Items = usersQuery
+                    .Include(u => u.UserRoles)
+                    .ThenInclude(ur => ur.Role)
+                    .ApplyPagedListRequest(request, response)
+                    .ToArray()
+                    .Select(UserDto.MapFromUser)
+                    .ToArray();
 
-            return response;
+                return Result<PagedListResponse<UserDto>>.Ok(response);
+            }
+            catch (Exception exception)
+            {
+                return Result<PagedListResponse<UserDto>>.Fail(null, exception.Message);
+            }
         }
 
         private static IQueryable<User> ProcessRequest(GetUsersPagedListRequest request, IQueryable<User> usersQuery)

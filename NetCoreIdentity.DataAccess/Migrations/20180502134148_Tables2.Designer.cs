@@ -11,9 +11,10 @@ using System;
 namespace NetCoreIdentity.DataAccess.Migrations
 {
     [DbContext(typeof(NetCoreIdentityDbContext))]
-    partial class NetCoreIdentityDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180502134148_Tables2")]
+    partial class Tables2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -26,8 +27,6 @@ namespace NetCoreIdentity.DataAccess.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("ConcurrencyStamp");
-
-                    b.Property<bool>("IsDeleted");
 
                     b.Property<string>("Name");
 
@@ -117,17 +116,11 @@ namespace NetCoreIdentity.DataAccess.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<bool>("IsDeleted");
-
                     b.Property<Guid>("RoleId");
 
                     b.Property<Guid>("UserId");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("RoleId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("UserRoles");
                 });
@@ -141,26 +134,11 @@ namespace NetCoreIdentity.DataAccess.Migrations
 
                     b.Property<string>("ClaimValue");
 
-                    b.Property<bool>("IsDeleted");
-
                     b.Property<Guid>("RoleId");
 
                     b.HasKey("Id");
 
                     b.ToTable("UserRoleClaims");
-                });
-
-            modelBuilder.Entity("NetCoreIdentity.DataAccess.UserRole", b =>
-                {
-                    b.HasOne("NetCoreIdentity.DataAccess.Role", "Role")
-                        .WithMany()
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("NetCoreIdentity.DataAccess.User", "User")
-                        .WithMany("UserRoles")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }
