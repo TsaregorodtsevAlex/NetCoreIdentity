@@ -114,7 +114,10 @@ namespace NetCoreIdentity.BusinessLogic.Users.Dtos
                 UserRoles = new List<UserRole>()
             };
 
-            user.UserRoles.Add(Role.ToUserRole());
+            if (Role != null)
+            {
+                user.UserRoles.Add(Role.ToUserRole());
+            }
 
             return user;
         }

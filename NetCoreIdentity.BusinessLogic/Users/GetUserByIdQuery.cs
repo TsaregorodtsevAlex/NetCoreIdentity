@@ -19,7 +19,7 @@ namespace NetCoreIdentity.BusinessLogic.Users
                     .AsQueryable()
                     .Include(u => u.UserRoles)
                     .ThenInclude(ur => ur.Role)
-                    .FirstOrDefault(u => u.Id == userId && u.IsActive && u.IsDeleted == false);
+                    .FirstOrDefault(u => u.Id == userId && u.IsDeleted == false);
 
                 if (user == null)
                 {

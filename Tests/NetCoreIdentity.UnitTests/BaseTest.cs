@@ -22,6 +22,8 @@ namespace NetCoreIdentity.UnitTests
         protected IServiceCollection ServiceCollection;
         protected ServiceProvider ServiceProvider;
 
+        protected List<Guid> CreatedUserIds;
+
         [OneTimeSetUp]
         public void SetUp()
         {
@@ -42,6 +44,9 @@ namespace NetCoreIdentity.UnitTests
 
             ServiceProvider = ServiceCollection.BuildServiceProvider();
             var _ = new AmbientContext(ServiceProvider);
+
+            FillRoleTable();
+            CreatedUserIds = FillUserTable();
         }
 
         public IExecutor GetExecutor()

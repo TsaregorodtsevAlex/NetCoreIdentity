@@ -20,7 +20,9 @@ namespace NetCoreIdentity.BusinessLogic.Users
                 var response = new PagedListResponse<UserDto>();
 
                 var userRepository = Uow.GetRepository<User>();
-                var usersQuery = userRepository.AsQueryable();
+                var usersQuery = userRepository
+                    .AsQueryable()
+                    .Where(u => u.IsDeleted == false);
 
                 usersQuery = ProcessRequest(request, usersQuery);
 
