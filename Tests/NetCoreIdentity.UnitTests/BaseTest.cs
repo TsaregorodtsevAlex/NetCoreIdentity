@@ -85,7 +85,7 @@ namespace NetCoreIdentity.UnitTests
             var testUser = UserTestData.TestUserDto;
             testUser.Role = administratorRoleResult.Value;
 
-            var createUserResult = executor.GetCommand<CreateUserCommand>().Process(c => c.Execute(testUser));
+            var createUserResult = executor.GetCommand<CreateUserCommand>().Process(c => c.Execute(testUser.ToUser()));
 
             if (createUserResult.IsFailure)
             {

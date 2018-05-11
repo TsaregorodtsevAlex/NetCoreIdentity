@@ -8,12 +8,11 @@ namespace NetCoreIdentity.BusinessLogic.Users
 {
     public class CreateUserCommand : BaseCommand
     {
-        public Result<Guid> Execute(UserDto userDto)
+        public Result<Guid> Execute(User user)
         {
             try
             {
                 var userRepository = Uow.GetRepository<User>();
-                var user = userDto.ToUser();
                 userRepository.Create(user);
                 Uow.SaveChanges();
                 return Result<Guid>.Ok(user.Id);

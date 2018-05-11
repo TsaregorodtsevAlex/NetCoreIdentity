@@ -20,6 +20,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NetCoreCQRS;
 using NetCoreIdentity.BusinessLogic.UserClaims;
+using NetCoreIdentity.BusinessLogic.UserClaims.Dtos;
 using NetCoreIdentity.BusinessLogic.Users;
 using NetCoreIdentity.Controllers.Account.Users;
 using NetCoreIdentity.DataAccess.Enums;
@@ -73,9 +74,9 @@ namespace NetCoreIdentity.Controllers.Account
             _executor
                 .CommandChain()
                 .AddCommand<RegisterUserCommand>(c => c.Execute(user))
-                .AddCommand<CreateUserClaimCommand>(c => c.Execute(new CreateUserClaimRequest { UserId = user.Id, ClaimName = "name", ClaimValue = user.UserName }))
-                .AddCommand<CreateUserClaimCommand>(c => c.Execute(new CreateUserClaimRequest { UserId = user.Id, ClaimName = "role", ClaimValue = "superadmin" }))
-                .AddCommand<CreateUserClaimCommand>(c => c.Execute(new CreateUserClaimRequest { UserId = user.Id, ClaimName = "gender", ClaimValue = Enum.GetName(typeof(GenderType), userRegistrationModel.Gender) }))
+                .AddCommand<CreateUserClaimCommand>(c => c.Execute(new UserClaimDto { UserId = user.Id, ClaimName = ClaimTypes.Name, ClaimValue = user.UserName }))
+                .AddCommand<CreateUserClaimCommand>(c => c.Execute(new UserClaimDto { UserId = user.Id, ClaimName = ClaimTypes.Role, ClaimValue = "superadmin" }))
+                .AddCommand<CreateUserClaimCommand>(c => c.Execute(new UserClaimDto { UserId = user.Id, ClaimName = ClaimTypes.Gender, ClaimValue = Enum.GetName(typeof(GenderType), userRegistrationModel.Gender) }))
                 .ExecuteAllWithTransaction();
 
             return View(userRegistrationModel);

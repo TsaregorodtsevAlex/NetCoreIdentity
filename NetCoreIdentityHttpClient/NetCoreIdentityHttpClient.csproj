@@ -10,6 +10,7 @@
     <PackageReference Include="NetCoreDomain" Version="1.0.1" />
     <PackageReference Include="NetCoreHttpClient" Version="1.1.0" />
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+    <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.4.0" />
   </ItemGroup>
 
   <ItemGroup>

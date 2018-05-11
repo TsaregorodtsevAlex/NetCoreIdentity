@@ -12,7 +12,7 @@ namespace NetCoreIdentity.UnitTests
     [TestFixture]
     public class UserTests : BaseTest
     {
-        
+
 
         [Test]
         public void GetUsersPagedList_ReturnList_Success()
@@ -67,7 +67,7 @@ namespace NetCoreIdentity.UnitTests
                 IsActive = true
             };
 
-            var createdUserIdResult = executor.GetCommand<CreateUserCommand>().Process(c => c.Execute(userDto));
+            var createdUserIdResult = executor.GetCommand<CreateUserCommand>().Process(c => c.Execute(userDto.ToUser()));
             createdUserIdResult.Should().NotBeNull($"{nameof(createdUserIdResult)} is null");
 
             var createdUserDtoResult = executor.GetQuery<GetUserByIdQuery>().Process(q => q.Execute(createdUserIdResult.Value));
@@ -116,7 +116,7 @@ namespace NetCoreIdentity.UnitTests
                 IsActive = true
             };
 
-            var createdUserIdResult = executor.GetCommand<CreateUserCommand>().Process(c => c.Execute(userDto));
+            var createdUserIdResult = executor.GetCommand<CreateUserCommand>().Process(c => c.Execute(userDto.ToUser()));
             createdUserIdResult.Should().NotBeNull($"{nameof(createdUserIdResult)} is null");
 
             var createdUserDtoResult = executor.GetQuery<GetUserByIdQuery>().Process(q => q.Execute(createdUserIdResult.Value));

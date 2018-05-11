@@ -121,5 +121,7 @@ namespace NetCoreIdentity.BusinessLogic.Users.Dtos
 
             return user;
         }
+
+        public string UserFullName => $"{SecondName} {FirstName} {MiddleName}";
     }
 }

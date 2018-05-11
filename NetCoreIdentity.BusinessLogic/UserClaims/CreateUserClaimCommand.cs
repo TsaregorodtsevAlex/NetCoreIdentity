@@ -1,29 +1,15 @@
-﻿using System;
-using NetCoreCQRS.Commands;
+﻿using NetCoreCQRS.Commands;
+using NetCoreIdentity.BusinessLogic.UserClaims.Dtos;
 using NetCoreIdentity.DataAccess;
 
 namespace NetCoreIdentity.BusinessLogic.UserClaims
 {
-    public class CreateUserClaimRequest
-    {
-        public Guid UserId { get; set; }
-        public string ClaimName { get; set; }
-        public string ClaimValue { get; set; }
-
-        public UserClaim ToUserClaim => new UserClaim
-        {
-            UserId = UserId,
-            ClaimType = ClaimName,
-            ClaimValue = ClaimValue
-        };
-    }
-
     public class CreateUserClaimCommand : BaseCommand
     {
-        public void Execute(CreateUserClaimRequest createUserClaimRequest)
+        public void Execute(UserClaimDto userClaimDto)
         {
             var userClaimsRepository = Uow.GetRepository<UserClaim>();
-            userClaimsRepository.Create(createUserClaimRequest.ToUserClaim);
+            userClaimsRepository.Create(userClaimDto.ToUserClaim);
             Uow.SaveChanges();
         }
     }
