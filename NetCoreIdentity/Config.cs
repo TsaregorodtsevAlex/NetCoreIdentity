@@ -37,7 +37,7 @@ namespace NetCoreIdentity
                     AllowedGrantTypes = new[] {GrantType.Hybrid},
                     RedirectUris = new List<string>
                     {
-                        "http://localhost:44317/signin-oidc"
+                        "https://localhost:44317/signin-oidc"
                     },
                     AllowedScopes =
                     {
@@ -49,14 +49,14 @@ namespace NetCoreIdentity
                     },
                     AlwaysSendClientClaims = true,
                     AlwaysIncludeUserClaimsInIdToken = true,
-                    RequireClientSecret = false,
+                    RequireClientSecret = true,
                     ClientSecrets = new List<Secret>
                     {
                         new Secret("secret".Sha256())
                     },
                     PostLogoutRedirectUris = new List<string>
                     {
-                        "http://localhost:44317/signout-callback-oidc"
+                        "https://localhost:44317/signout-callback-oidc"
                     }
                 }
             };

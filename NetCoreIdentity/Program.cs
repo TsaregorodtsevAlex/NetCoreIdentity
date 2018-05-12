@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.IO;
+using System.Net;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
 
 namespace NetCoreIdentity
 {
@@ -19,10 +14,16 @@ namespace NetCoreIdentity
 
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                .UseKestrel()
+                .UseKestrel(options =>
+                {
+                    options.Listen(IPAddress.Loopback, 44315, listenOptions =>
+                    {
+                        listenOptions.UseHttps(@"C:\localhost.pfx", "123");
+                    });
+                })
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseStartup<Startup>()
-                .UseUrls("http://localhost:44312/")
+                .UseUrls("https://localhost:44315/")
                 .Build();
     }
 }

@@ -38,12 +38,13 @@ namespace NetCoreIdentity
                 .AddTransient<IObjectResolver, ObjectResolver>()
                 .AddNetCoreIdentityBusinessLogicDependencies();
 
+            services.AddCors();
 
             services.AddMvc();
 
             services.AddIdentityServer()
-                //.AddSigningCredential(new X509Certificate2(Path.Combine(@"C:\Users\Alex\Desktop", "localhost.pfx"), "123"))
-                .AddDeveloperSigningCredential()
+                .AddSigningCredential(new X509Certificate2(@"C:\localhost.pfx", "123"))
+                //.AddDeveloperSigningCredential()
                 .AddCustomUserStore()
                 .AddInMemoryIdentityResources(Config.GetIdentityResources())
                 .AddInMemoryApiResources(Config.GetApiResources())
@@ -64,6 +65,9 @@ namespace NetCoreIdentity
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+
+            app.UseCors(builder =>
+                builder.WithOrigins("https://localhost:44315").AllowAnyHeader());
 
             app.UseIdentityServer();
 

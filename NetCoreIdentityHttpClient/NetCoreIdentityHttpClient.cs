@@ -22,7 +22,7 @@ namespace NetCoreIdentityHttpClient
         public NetCoreIdentityHttpClient(IHttpContextAccessor httpContextAccessor)
         {
             var configuration = new NetCoreIdentityHttpClientConfiguration();
-            configuration.Uri = "http://localhost:44312/";
+            configuration.Uri = "https://localhost:44315/";
             _httpClient = new NetCoreBaseHttpClient(httpContextAccessor);
             _httpClient.ConfigureServiceHttpClient(new NetCoreHttpClientConfigurationOptions { HttpClientBaseAddress = configuration.Uri });
         }
