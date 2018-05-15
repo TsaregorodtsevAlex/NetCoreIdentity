@@ -35,6 +35,11 @@ namespace NetCoreIdentity.Controllers.Api
         {
             try
             {
+                if (CanSaveUserValidation(userDto, out var failResult))
+                {
+                    return failResult;
+                }
+
                 var user = userDto.ToUser();
 
                 Executor.CommandChain()
@@ -52,12 +57,41 @@ namespace NetCoreIdentity.Controllers.Api
             }
         }
 
+        private bool CanSaveUserValidation(UserDto userDto, out Result<Guid> fail)
+        {
+            fail = null;
+
+            var isInnAlreadyExistsResult = Executor.GetQuery<IsUserInnAlreadyExistsQuery>().Process(q => q.Execute(userDto));
+            if (isInnAlreadyExistsResult.IsFailure)
+            {
+                {
+                    fail = Result<Guid>.Fail(Guid.Empty, isInnAlreadyExistsResult.Error);
+                    return true;
+                }
+            }
+
+            if (isInnAlreadyExistsResult.Value)
+            {
+                {
+                    fail = Result<Guid>.Fail(Guid.Empty, "Пользователь с таким иин уже существует");
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
         [HttpPost]
         [Route("update")]
         public Result<bool> UpdateUser([FromBody]UserDto userDto)
         {
             try
             {
+                if (CanUpdateUserValidation(userDto, out var failResult))
+                {
+                    return failResult;
+                }
+
                 Executor.CommandChain()
                     .AddCommand<UpdateUserCommand>(c => c.Execute(userDto))
                     .AddCommand<UpdateUserClaimCommand>(c => c.Execute(UserClaimDto.UserNameClaim(userDto)))
@@ -71,8 +105,30 @@ namespace NetCoreIdentity.Controllers.Api
             {
                 return Result<bool>.Fail(false, $"{exception.Message}, {exception.StackTrace}");
             }
+        }
 
-            
+        private bool CanUpdateUserValidation(UserDto userDto, out Result<bool> fail)
+        {
+            fail = null;
+
+            var isInnAlreadyExistsResult = Executor.GetQuery<IsUserInnAlreadyExistsQuery>().Process(q => q.Execute(userDto));
+            if (isInnAlreadyExistsResult.IsFailure)
+            {
+                {
+                    fail = Result<bool>.Fail(false, isInnAlreadyExistsResult.Error);
+                    return true;
+                }
+            }
+
+            if (isInnAlreadyExistsResult.Value)
+            {
+                {
+                    fail = Result<bool>.Fail(false, "Пользователь с таким иин уже существует");
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         [HttpPost]

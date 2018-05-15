@@ -123,5 +123,9 @@ namespace NetCoreIdentity.BusinessLogic.Users.Dtos
         }
 
         public string UserFullName => $"{SecondName} {FirstName} {MiddleName}";
+
+        public bool IsNewUser => Id == Guid.Empty;
+
+        public bool IsExsistedUser => IsNewUser == false;
     }
 }
