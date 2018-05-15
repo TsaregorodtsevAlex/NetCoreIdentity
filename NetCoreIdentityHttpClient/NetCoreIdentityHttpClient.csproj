@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="NetCoreDataAccess" Version="1.5.1" />
+    <PackageReference Include="NetCoreDataAccess" Version="1.5.2" />
     <PackageReference Include="NetCoreDomain" Version="1.0.1" />
     <PackageReference Include="NetCoreHttpClient" Version="1.1.0" />
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
