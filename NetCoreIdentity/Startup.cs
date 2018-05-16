@@ -1,6 +1,8 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Security;
 using System.Security.Cryptography.X509Certificates;
+using IdentityServer4.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -12,6 +14,7 @@ using NetCoreDataAccess.UnitOfWork;
 using NetCoreDI;
 using NetCoreIdentity.BusinessLogic;
 using NetCoreIdentity.DataAccess;
+using IdentityServer4.Validation;
 
 namespace NetCoreIdentity
 {
@@ -38,17 +41,41 @@ namespace NetCoreIdentity
                 .AddTransient<IObjectResolver, ObjectResolver>()
                 .AddNetCoreIdentityBusinessLogicDependencies();
 
-            services.AddCors();
+            services.AddCors(options =>
+            {
+                options.AddPolicy("allowAnyOrigin", policy =>
+                {
+                    policy.AllowAnyOrigin()
+                        .AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .AllowCredentials();
+                });
+                options.AddPolicy("localOriginOnly", policy =>
+                {
+                    policy.WithOrigins(Configuration.GetSection("Identity").GetSection("Url").Value)
+                        .AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .AllowCredentials();
+                });
+            });
 
             services.AddMvc();
 
-            services.AddIdentityServer()
+            services.AddIdentityServer(options =>
+                {
+                    options.Authentication.CookieLifetime = TimeSpan.FromSeconds(60);
+                    options.Authentication.CookieSlidingExpiration = false;
+                })
                 .AddSigningCredential(new X509Certificate2(@"C:\localhost.pfx", "123"))
                 //.AddDeveloperSigningCredential()
                 .AddCustomUserStore()
                 .AddInMemoryIdentityResources(Config.GetIdentityResources())
                 .AddInMemoryApiResources(Config.GetApiResources())
-                .AddInMemoryClients(Config.GetClients());
+                .AddInMemoryClients(Config.GetClients())
+                //.AddRedirectUriValidator<IRedirectUriValidator>()
+                .AddJwtBearerClientAuthentication();
+                //.AddCorsPolicyService<CorsPolicyService>()
+                //.AddProfileService<ProfileService>();
 
             var serviceProvider = services.BuildServiceProvider();
             var _ = new AmbientContext(serviceProvider);

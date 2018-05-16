@@ -35,6 +35,9 @@ namespace NetCoreIdentity
                     ClientName = "Examination client",
                     ClientId = "examinationclient",
                     AllowedGrantTypes = new[] {GrantType.Hybrid},
+                    //AllowedGrantTypes = GrantTypes.Implicit,
+                    RequireConsent = false,
+                    AllowAccessTokensViaBrowser = true,
                     RedirectUris = new List<string>
                     {
                         "https://localhost:44317/signin-oidc"
@@ -46,6 +49,11 @@ namespace NetCoreIdentity
                         IdentityServerConstants.StandardScopes.Address,
                         "roles",
                         "examinationapi"
+                    },
+                    AllowedCorsOrigins = new List<string>
+                    {
+                        "https://localhost:44317",
+                        "https://localhost:4200"
                     },
                     AlwaysSendClientClaims = true,
                     AlwaysIncludeUserClaimsInIdToken = true,
