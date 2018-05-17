@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Security.Claims;
+﻿using System.Collections.Generic;
 using IdentityServer4;
-using IdentityServer4.Test;
 using IdentityServer4.Models;
 
 namespace NetCoreIdentity
@@ -52,8 +49,7 @@ namespace NetCoreIdentity
                     },
                     AllowedCorsOrigins = new List<string>
                     {
-                        "https://localhost:44317",
-                        "https://localhost:4200"
+                        "https://localhost:44317"
                     },
                     AlwaysSendClientClaims = true,
                     AlwaysIncludeUserClaimsInIdToken = true,

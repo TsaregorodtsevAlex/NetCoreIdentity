@@ -62,20 +62,20 @@ namespace NetCoreIdentity
             services.AddMvc();
 
             services.AddIdentityServer(
-                //    options =>
-                //{
-                //    options.Authentication.CookieLifetime = TimeSpan.FromSeconds(60);
-                //    options.Authentication.CookieSlidingExpiration = false;
-                //}
+                    options =>
+                {
+                    options.Authentication.CookieLifetime = TimeSpan.FromHours(24);
+                    options.Authentication.CookieSlidingExpiration = false;
+                }
                     )
                 .AddSigningCredential(new X509Certificate2(@"C:\localhost.pfx", "123"))
                 //.AddDeveloperSigningCredential()
                 .AddCustomUserStore()
                 .AddInMemoryIdentityResources(Config.GetIdentityResources())
                 .AddInMemoryApiResources(Config.GetApiResources())
-                .AddInMemoryClients(Config.GetClients());
+                .AddInMemoryClients(Config.GetClients())
                 //.AddRedirectUriValidator<IRedirectUriValidator>()
-                //.AddJwtBearerClientAuthentication();
+                .AddJwtBearerClientAuthentication();
                 //.AddCorsPolicyService<CorsPolicyService>()
                 //.AddProfileService<ProfileService>();
 
@@ -95,21 +95,11 @@ namespace NetCoreIdentity
                 app.UseExceptionHandler("/Home/Error");
             }
 
-            app.UseCors(builder =>
-                builder.WithOrigins("https://localhost:44315").AllowAnyHeader());
-
             app.UseIdentityServer();
 
             app.UseStaticFiles();
 
             app.UseMvcWithDefaultRoute();
-
-            //app.UseMvc(routes =>
-            //{
-            //    routes.MapRoute(
-            //        name: "default",
-            //        template: "{controller=Home}/{action=Index}/{id?}");
-            //});
         }
     }
 }
