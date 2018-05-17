@@ -297,8 +297,9 @@ namespace NetCoreIdentity.Controllers.Account
                 // this triggers a redirect to the external provider for sign-out
                 return SignOut(new AuthenticationProperties { RedirectUri = url }, vm.ExternalAuthenticationScheme);
             }
-
-            return Redirect(vm.PostLogoutRedirectUri);
+            return View("LoggedOut", vm);
+            
+            return View("Login"); //Redirect(vm.PostLogoutRedirectUri);
         }
 
         /*****************************************/

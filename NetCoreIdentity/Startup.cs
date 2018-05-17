@@ -61,19 +61,21 @@ namespace NetCoreIdentity
 
             services.AddMvc();
 
-            services.AddIdentityServer(options =>
-                {
-                    options.Authentication.CookieLifetime = TimeSpan.FromSeconds(60);
-                    options.Authentication.CookieSlidingExpiration = false;
-                })
+            services.AddIdentityServer(
+                //    options =>
+                //{
+                //    options.Authentication.CookieLifetime = TimeSpan.FromSeconds(60);
+                //    options.Authentication.CookieSlidingExpiration = false;
+                //}
+                    )
                 .AddSigningCredential(new X509Certificate2(@"C:\localhost.pfx", "123"))
                 //.AddDeveloperSigningCredential()
                 .AddCustomUserStore()
                 .AddInMemoryIdentityResources(Config.GetIdentityResources())
                 .AddInMemoryApiResources(Config.GetApiResources())
-                .AddInMemoryClients(Config.GetClients())
+                .AddInMemoryClients(Config.GetClients());
                 //.AddRedirectUriValidator<IRedirectUriValidator>()
-                .AddJwtBearerClientAuthentication();
+                //.AddJwtBearerClientAuthentication();
                 //.AddCorsPolicyService<CorsPolicyService>()
                 //.AddProfileService<ProfileService>();
 

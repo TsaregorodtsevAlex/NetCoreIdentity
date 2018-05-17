@@ -36,8 +36,8 @@ namespace NetCoreIdentity
                     ClientId = "examinationclient",
                     AllowedGrantTypes = new[] {GrantType.Hybrid},
                     //AllowedGrantTypes = GrantTypes.Implicit,
-                    RequireConsent = false,
-                    AllowAccessTokensViaBrowser = true,
+                    //RequireConsent = false,
+                    //AllowAccessTokensViaBrowser = true,
                     RedirectUris = new List<string>
                     {
                         "https://localhost:44317/signin-oidc"
