@@ -44,6 +44,16 @@ namespace NetCoreIdentity.BusinessLogic.UserClaims.Dtos
             };
         }
 
+        public static UserClaimDto UserRoleClaim(string roleName, Guid userId)
+        {
+            return new UserClaimDto
+            {
+                UserId = userId,
+                ClaimName = ClaimTypes.Role,
+                ClaimValue = roleName
+            };
+        }
+
         public static UserClaimDto UserGenderClaim(UserDto user, Guid? userId = null)
         {
             return new UserClaimDto

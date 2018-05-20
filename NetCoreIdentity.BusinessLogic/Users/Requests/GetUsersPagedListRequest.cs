@@ -13,14 +13,16 @@ namespace NetCoreIdentity.BusinessLogic.Users.Requests
         public DateTime? Birthdate { get; set; }
         public string Address { get; set; }
         public bool? IsActive { get; set; }
+        public Guid? RoleId { get; set; }
 
         public bool HasRequestFirstName => string.IsNullOrEmpty(FirstName) == false;
-        public bool HasRequestMiddleName => string.IsNullOrEmpty(SecondName) == false;
-        public bool HasRequestSecondName => string.IsNullOrEmpty(FirstName) == false;
+        public bool HasRequestMiddleName => string.IsNullOrEmpty(MiddleName) == false;
+        public bool HasRequestSecondName => string.IsNullOrEmpty(SecondName) == false;
         public bool HasRequestPosition => string.IsNullOrEmpty(Position) == false;
         public bool HasRequestInn => string.IsNullOrEmpty(Inn) == false;
         public bool HasRequestBirthdate => Birthdate.HasValue;
         public bool HasRequestAddress => string.IsNullOrEmpty(Address) == false;
         public bool HasRequestIsActive => IsActive.HasValue;
+        public bool HasRole => RoleId.HasValue;
     }
 }

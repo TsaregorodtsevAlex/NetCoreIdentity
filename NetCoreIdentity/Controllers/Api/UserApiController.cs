@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using NetCoreDataAccess.BaseResponses;
 using NetCoreDomain;
+using NetCoreIdentity.BusinessLogic.Roles;
 using NetCoreIdentity.BusinessLogic.UserClaims;
 using NetCoreIdentity.BusinessLogic.UserClaims.Dtos;
 using NetCoreIdentity.BusinessLogic.Users;
@@ -42,10 +43,17 @@ namespace NetCoreIdentity.Controllers.Api
 
                 var user = userDto.ToUser();
 
+                var roleNameResult = Executor.GetQuery<GetRoleByIdQuery>().Process(q => q.Execute(userDto.Role.Id));
+                if (roleNameResult.IsFailure)
+                {
+                    return Result<Guid>.Fail(Guid.Empty, "Выбранная роль не найдена");
+                }
+
+                var roleName = roleNameResult.Value.Name;
                 Executor.CommandChain()
                     .AddCommand<CreateUserCommand>(c => c.Execute(user))
                     .AddCommand<CreateUserClaimCommand>(c => c.Execute(UserClaimDto.UserNameClaim(userDto, user.Id)))
-                    .AddCommand<CreateUserClaimCommand>(c => c.Execute(UserClaimDto.UserRoleClaim(userDto, user.Id)))
+                    .AddCommand<CreateUserClaimCommand>(c => c.Execute(UserClaimDto.UserRoleClaim(roleName, user.Id)))
                     .AddCommand<CreateUserClaimCommand>(c => c.Execute(UserClaimDto.UserGenderClaim(userDto, user.Id)))
                     .ExecuteAllWithTransaction();
 
@@ -92,10 +100,17 @@ namespace NetCoreIdentity.Controllers.Api
                     return failResult;
                 }
 
+                var roleNameResult = Executor.GetQuery<GetRoleByIdQuery>().Process(q => q.Execute(userDto.Role.Id));
+                if (roleNameResult.IsFailure)
+                {
+                    return Result<bool>.Fail(false, "Выбранная роль не найдена");
+                }
+
+                var roleName = roleNameResult.Value.Name;
                 Executor.CommandChain()
                     .AddCommand<UpdateUserCommand>(c => c.Execute(userDto))
                     .AddCommand<UpdateUserClaimCommand>(c => c.Execute(UserClaimDto.UserNameClaim(userDto)))
-                    .AddCommand<UpdateUserClaimCommand>(c => c.Execute(UserClaimDto.UserRoleClaim(userDto)))
+                    .AddCommand<UpdateUserClaimCommand>(c => c.Execute(UserClaimDto.UserRoleClaim(roleName, userDto.Id)))
                     .AddCommand<UpdateUserClaimCommand>(c => c.Execute(UserClaimDto.UserGenderClaim(userDto)))
                     .ExecuteAllWithTransaction();
 

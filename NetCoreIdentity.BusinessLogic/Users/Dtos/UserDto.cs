@@ -10,6 +10,9 @@ namespace NetCoreIdentity.BusinessLogic.Users.Dtos
     public class UserDto
     {
         public Guid Id { get; set; }
+
+        public string Account { get; set; }
+
         public string FirstName { get; set; }
         public string MiddleName { get; set; }
         public string SecondName { get; set; }
@@ -27,6 +30,7 @@ namespace NetCoreIdentity.BusinessLogic.Users.Dtos
         public static Func<User, UserDto> MapFromUser = user => new UserDto
         {
             Id = user.Id,
+            Account = user.UserName,
             FirstName = user.FirstName,
             MiddleName = user.MiddleName,
             SecondName = user.SecondName,
@@ -45,6 +49,7 @@ namespace NetCoreIdentity.BusinessLogic.Users.Dtos
         public static Expression<Func<User, UserDto>> Map = user => new UserDto
         {
             Id = user.Id,
+            Account = user.UserName,
             FirstName = user.FirstName,
             MiddleName = user.MiddleName,
             SecondName = user.SecondName,
@@ -62,15 +67,16 @@ namespace NetCoreIdentity.BusinessLogic.Users.Dtos
 
         public void UpdateUser(User user)
         {
-            user.FirstName = FirstName;
-            user.MiddleName = MiddleName;
-            user.SecondName = SecondName;
-            user.Position = Position;
-            user.Inn = Inn;
+            user.UserName = Account.Trim();
+            user.FirstName = FirstName.Trim();
+            user.MiddleName = MiddleName.Trim();
+            user.SecondName = SecondName.Trim();
+            user.Position = Position.Trim();
+            user.Inn = Inn.Trim();
             user.Birthdate = Birthdate;
-            user.Address = Address;
-            user.PhoneNumber = PhoneNumber;
-            user.Email = Email;
+            user.Address = Address.Trim();
+            user.PhoneNumber = PhoneNumber.Trim();
+            user.Email = Email.Trim();
             user.IsActive = IsActive;
             user.IsDeleted = IsDeleted;
 
@@ -100,15 +106,16 @@ namespace NetCoreIdentity.BusinessLogic.Users.Dtos
         {
             var user = new User
             {
-                FirstName = FirstName,
-                MiddleName = MiddleName,
-                SecondName = SecondName,
-                Position = Position,
-                Inn = Inn,
+                UserName = Account.Trim(),
+                FirstName = FirstName.Trim(),
+                MiddleName = MiddleName.Trim(),
+                SecondName = SecondName.Trim(),
+                Position = Position.Trim(),
+                Inn = Inn.Trim(),
                 Birthdate = Birthdate,
-                Address = Address,
-                PhoneNumber = PhoneNumber,
-                Email = Email,
+                Address = Address.Trim(),
+                PhoneNumber = PhoneNumber.Trim(),
+                Email = Email.Trim(),
                 IsActive = IsActive,
                 IsDeleted = IsDeleted,
                 UserRoles = new List<UserRole>()

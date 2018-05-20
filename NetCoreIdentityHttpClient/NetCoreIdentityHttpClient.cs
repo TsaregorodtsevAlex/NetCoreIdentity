@@ -21,8 +21,7 @@ namespace NetCoreIdentityHttpClient
 
         public NetCoreIdentityHttpClient(IHttpContextAccessor httpContextAccessor)
         {
-            var configuration = new NetCoreIdentityHttpClientConfiguration();
-            configuration.Uri = "https://localhost:44315/";
+            var configuration = new NetCoreIdentityHttpClientConfiguration { Uri = "https://localhost:44315/" };
             _httpClient = new NetCoreBaseHttpClient(httpContextAccessor);
             _httpClient.ConfigureServiceHttpClient(new NetCoreHttpClientConfigurationOptions { HttpClientBaseAddress = configuration.Uri });
         }
@@ -123,17 +122,7 @@ namespace NetCoreIdentityHttpClient
                     {
                         FieldName = "FirstName",
                         Direction = SortDirection.Descending
-                    },
-                    //new SortedListRequest
-                    //{
-                    //    FieldName = "Users.MiddleName",
-                    //    Direction = SortDirection.Descending
-                    //},
-                    //new SortedListRequest
-                    //{
-                    //    FieldName = "Users.SeconfName",
-                    //    Direction = SortDirection.Ascending
-                    //}
+                    }
                 }
             };
             var jsonRequest = JsonConvert.SerializeObject(request);

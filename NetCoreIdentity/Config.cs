@@ -29,7 +29,7 @@ namespace NetCoreIdentity
             {
                 new Client
                 {
-                    ClientName = "Examination client",
+                    ClientName = "Система тестирования",
                     ClientId = "examinationclient",
                     AllowedGrantTypes = new[] {GrantType.Hybrid},
                     //AllowedGrantTypes = GrantTypes.Implicit,

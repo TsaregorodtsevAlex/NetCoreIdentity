@@ -84,6 +84,11 @@ namespace NetCoreIdentity.BusinessLogic.Users
                 usersQuery = usersQuery.Where(u => u.IsActive == request.IsActive);
             }
 
+            if (request.HasRole)
+            {
+                usersQuery = usersQuery.Where(u => u.UserRoles.Any(r => r.RoleId == request.RoleId));
+            }
+
             return usersQuery;
         }
     }

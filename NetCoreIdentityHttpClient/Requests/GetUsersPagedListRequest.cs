@@ -13,5 +13,6 @@ namespace NetCoreIdentityHttpClient.Requests
         public DateTime? Birthdate { get; set; }
         public string Address { get; set; }
         public bool? IsActive { get; set; }
+        public Guid? RoleId { get; set; }
     }
 }

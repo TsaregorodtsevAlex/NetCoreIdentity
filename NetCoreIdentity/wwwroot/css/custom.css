@@ -1,0 +1,32 @@
+﻿.ui-font-family {
+    font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", "Roboto", "Ubuntu", "Helvetica Neue", sans-serif !important;
+    font-weight: 100 !important;
+}
+
+.ui-colored-font-color {
+    color: #0c5f9a !important;
+}
+
+.ui-font-color {
+    color: #333 !important;
+}
+
+.page-header {
+    border: none !important;
+}
+
+
+.ui-button-color {
+    background-color: #0c5f9a !important;
+    border: 1px solid #0c5f9a !important;
+    border-radius: 0px !important;
+}
+
+input {
+    border-radius: 0px !important;
+}
+
+.navbar-inverse {
+    background-color: #0c5f9a !important;
+    border-color: #0c5f9a !important;
+}
