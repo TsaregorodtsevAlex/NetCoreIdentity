@@ -32,4 +32,8 @@
     <ProjectReference Include="..\NetCoreIdentityDomain\NetCoreIdentityDomain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\images\icon\" />
+  </ItemGroup>
+
 </Project>

@@ -20,7 +20,7 @@ namespace NetCoreIdentity.Controllers.Home
 
         public IActionResult Index()
         {
-            return View();
+            return RedirectToAction("login", "account");
         }
 
         /// <summary>

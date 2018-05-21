@@ -19,7 +19,7 @@ namespace NetCoreIdentity
         {
             return new List<ApiResource>
             {
-                new ApiResource("examinationapi", "Examination API")
+                new ApiResource("examinationapi", "Система тестирования")
             };
         }
 

@@ -13,6 +13,7 @@
 
 .page-header {
     border: none !important;
+    margin-left: 25px !important;
 }
 
 
@@ -29,4 +30,47 @@ input {
 .navbar-inverse {
     background-color: #0c5f9a !important;
     border-color: #0c5f9a !important;
+}
+
+.ui-font-size-1-4 {
+    font-size: 1.4em !important;
+}
+
+.ui-button-middle {
+    width: 150px;
+    height: 40px;
+}
+
+.login-icon {
+    background-image: url('/images/icon/Login-01.svg');
+    background-repeat: no-repeat;
+    padding-left: 50px;
+}
+
+.access-settings-icon {
+    background-image: url('/images/icon/User_Setting-01-WF.svg');
+    background-repeat: no-repeat;
+    padding-left: 50px;
+}
+
+.personal-info-icon {
+    background-image: url('/images/icon/User-01.svg');
+    background-repeat: no-repeat;
+    padding-left: 50px;
+    padding-bottom: 10px;
+}
+
+.admin-info-icon {
+    background-image: url('/images/icon/User-01.svg');
+    background-repeat: no-repeat;
+    padding-left: 50px;
+    padding-bottom: 10px;
+}
+
+.panel-heading {
+    background: none !important;
+}
+
+.panel-default {
+    border: none !important;
 }
