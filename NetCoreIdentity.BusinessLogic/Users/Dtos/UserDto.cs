@@ -67,16 +67,16 @@ namespace NetCoreIdentity.BusinessLogic.Users.Dtos
 
         public void UpdateUser(User user)
         {
-            user.UserName = Account.Trim();
-            user.FirstName = FirstName.Trim();
-            user.MiddleName = MiddleName.Trim();
-            user.SecondName = SecondName.Trim();
-            user.Position = Position.Trim();
+            user.UserName = user.UserName != null ? user.UserName.Trim() : Inn.Trim();
+            user.FirstName = FirstName?.Trim();
+            user.MiddleName = MiddleName?.Trim();
+            user.SecondName = SecondName?.Trim();
+            user.Position = Position?.Trim();
             user.Inn = Inn.Trim();
             user.Birthdate = Birthdate;
-            user.Address = Address.Trim();
-            user.PhoneNumber = PhoneNumber.Trim();
-            user.Email = Email.Trim();
+            user.Address = Address?.Trim();
+            user.PhoneNumber = PhoneNumber?.Trim();
+            user.Email = Email?.Trim();
             user.IsActive = IsActive;
             user.IsDeleted = IsDeleted;
 
@@ -106,16 +106,16 @@ namespace NetCoreIdentity.BusinessLogic.Users.Dtos
         {
             var user = new User
             {
-                UserName = Account.Trim(),
-                FirstName = FirstName.Trim(),
-                MiddleName = MiddleName.Trim(),
-                SecondName = SecondName.Trim(),
-                Position = Position.Trim(),
+                UserName = Account != null ? Account.Trim() : Inn.Trim(),
+                FirstName = FirstName?.Trim(),
+                MiddleName = MiddleName?.Trim(),
+                SecondName = SecondName?.Trim(),
+                Position = Position?.Trim(),
                 Inn = Inn.Trim(),
                 Birthdate = Birthdate,
-                Address = Address.Trim(),
-                PhoneNumber = PhoneNumber.Trim(),
-                Email = Email.Trim(),
+                Address = Address?.Trim(),
+                PhoneNumber = PhoneNumber?.Trim(),
+                Email = Email?.Trim(),
                 IsActive = IsActive,
                 IsDeleted = IsDeleted,
                 UserRoles = new List<UserRole>()
