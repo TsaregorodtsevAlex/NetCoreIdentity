@@ -92,14 +92,17 @@ namespace NetCoreIdentity.BusinessLogic.Users.Dtos
                 activeUserRole.MarkAsDeleted();
             }
 
-            var newUserRole = Role.ToUserRole();
-
-            if (user.UserRoles == null)
+            if(Role != null)
             {
-                user.UserRoles = new List<UserRole>();
-            }
+                var newUserRole = Role.ToUserRole();
 
-            user.UserRoles.Add(newUserRole);
+                if (user.UserRoles == null)
+                {
+                    user.UserRoles = new List<UserRole>();
+                }
+
+                user.UserRoles.Add(newUserRole);
+            }
         }
 
         public User ToUser()
