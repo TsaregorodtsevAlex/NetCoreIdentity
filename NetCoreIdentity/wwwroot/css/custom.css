@@ -74,3 +74,28 @@ input {
 .panel-default {
     border: none !important;
 }
+
+.rus-lang-icon {
+    background-image: url('/images/flags/russia.svg');
+}
+
+.kaz-lang-icon {
+    background-image: url('/images/flags/kazakhstan (1).svg');
+}
+
+.pendos-lang-icon {
+    background-image: url('/images/flags/united-states (1).svg');
+}
+
+.lang-hover-bgcolor {
+    background-repeat: no-repeat;
+    padding-left: 64px;
+    padding-bottom: 64px;
+    padding: 0px 12px 32px 32px;
+    border-radius: 50px;
+}
+
+.lang-hover-bgcolor:hover {
+    background-color: #ccc;
+    text-decoration: none !important;
+}

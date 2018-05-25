@@ -14,6 +14,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.7" />
     <PackageReference Include="IdentityServer4" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Extensions" Version="2.0.3" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.0" />
     <PackageReference Include="NetCoreCQRS" Version="1.3.1" />
     <PackageReference Include="NetCoreDataAccess" Version="1.5.2" />
@@ -34,6 +35,26 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\images\icon\" />
+    <Folder Include="wwwroot\images\flags\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Resources\Controllers.Account.AccountController.en.resx" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Resources\Controllers.Account.AccountController.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Controllers.Account.AccountController.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\Controllers.Account.AccountController.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Controllers.Account.AccountController.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>

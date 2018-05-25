@@ -15,9 +15,12 @@ using IdentityServer4.Models;
 using IdentityServer4.Services;
 using IdentityServer4.Stores;
 using IdentityServer4.Test;
+using Microsoft.ApplicationInsights.AspNetCore.Extensions;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 using NetCoreCQRS;
 using NetCoreIdentity.BusinessLogic.UserClaims;
 using NetCoreIdentity.BusinessLogic.UserClaims.Dtos;
@@ -38,7 +41,11 @@ namespace NetCoreIdentity.Controllers.Account
         private readonly IAuthenticationSchemeProvider _schemeProvider;
         private readonly IEventService _events;
 
+        private readonly IHttpContextAccessor _httpContextAccessor;
+
         private readonly IExecutor _executor;
+
+        private readonly IStringLocalizer<AccountController> _localizer;
 
         public AccountController(
             IIdentityServerInteractionService interaction,
@@ -46,6 +53,8 @@ namespace NetCoreIdentity.Controllers.Account
             IAuthenticationSchemeProvider schemeProvider,
             IEventService events,
             IExecutor executor,
+            IStringLocalizer<AccountController> localizer,
+            IHttpContextAccessor httpContextAccessor,
             TestUserStore users = null)
         {
             // if the TestUserStore is not in DI, then we'll just use the global users collection
@@ -57,7 +66,29 @@ namespace NetCoreIdentity.Controllers.Account
             _schemeProvider = schemeProvider;
             _events = events;
 
+            _httpContextAccessor = httpContextAccessor;
+
+            _localizer = localizer;
+
             _executor = executor;
+        }
+
+        [HttpGet]
+        public IActionResult SetLanguage([FromQuery] string culture, [FromQuery] string returnUrl)
+        {
+            Response.Cookies.Append(
+                CookieRequestCultureProvider.DefaultCookieName,
+                CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture)),
+                new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1) }
+            );
+
+            Response.Cookies.Append(
+                "system_language",
+                culture,
+                new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1) }
+            );
+
+            return new RedirectToActionResult("login", "account", new { @returnUrl = returnUrl });
         }
 
         [HttpGet]
@@ -90,6 +121,18 @@ namespace NetCoreIdentity.Controllers.Account
         {
             // build a model so we know what to show on the login page
             var vm = await BuildLoginViewModelAsync(returnUrl);
+
+            ViewData["CommonEnter"] = _localizer["CommonEnter"];
+            ViewData["CommonWelcomeText"] = _localizer["CommonWelcomeText"];
+            ViewData["ButtonsEnter"] = _localizer["ButtonsEnter"];
+            ViewData["CommonRememberMe"] = _localizer["CommonRememberMe"];
+            ViewData["CommonINN"] = _localizer["CommonINN"];
+            ViewData["CommonPassword"] = _localizer["CommonPassword"];
+            ViewData["CommonCredentinalsNotValid"] = _localizer["CommonCredentinalsNotValid"];
+
+            ViewData["CommonInterfaceLanguage"] = _localizer["CommonInterfaceLanguage"];
+
+            ViewData["ReturnUrl"] = _httpContextAccessor.HttpContext.Request.Query.Keys.Contains("returnUrl") ? System.Net.WebUtility.UrlEncode(_httpContextAccessor.HttpContext.Request.Query["returnUrl"].ToString()) : string.Empty;
 
             if (vm.IsExternalLoginOnly)
             {

@@ -1,20 +1,18 @@
 ﻿using System;
-using System.IO;
-using System.Security;
+using System.Globalization;
 using System.Security.Cryptography.X509Certificates;
-using IdentityServer4.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NetCoreCQRS;
-using NetCoreDataAccess;
 using NetCoreDataAccess.UnitOfWork;
 using NetCoreDI;
 using NetCoreIdentity.BusinessLogic;
 using NetCoreIdentity.DataAccess;
-using IdentityServer4.Validation;
+using Microsoft.AspNetCore.Localization;
 
 namespace NetCoreIdentity
 {
@@ -30,6 +28,8 @@ namespace NetCoreIdentity
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddLocalization(options => options.ResourcesPath = "Resources");
+
             services
                 //.AddDbContext<NetCoreIdentityDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("NetCoreIdentityServer")))
                 .AddDbContext<NetCoreIdentityDbContext>(options =>
@@ -39,6 +39,7 @@ namespace NetCoreIdentity
                 .AddTransient<IAmbientContext, AmbientContext>()
                 .AddTransient<IUnitOfWork, UnitOfWork>()
                 .AddTransient<IObjectResolver, ObjectResolver>()
+                .AddTransient<IHttpContextAccessor, HttpContextAccessor>()
                 .AddNetCoreIdentityBusinessLogicDependencies();
 
             services.AddCors(options =>
@@ -63,21 +64,17 @@ namespace NetCoreIdentity
 
             services.AddIdentityServer(
                     options =>
-                {
-                    options.Authentication.CookieLifetime = TimeSpan.FromHours(24);
-                    options.Authentication.CookieSlidingExpiration = false;
-                }
-                    )
+                    {
+                        options.Authentication.CookieLifetime = TimeSpan.FromHours(24);
+                        options.Authentication.CookieSlidingExpiration = false;
+                    }
+                )
                 .AddSigningCredential(new X509Certificate2(@"C:\localhost.pfx", "123"))
-                //.AddDeveloperSigningCredential()
                 .AddCustomUserStore()
                 .AddInMemoryIdentityResources(Config.GetIdentityResources())
                 .AddInMemoryApiResources(Config.GetApiResources())
                 .AddInMemoryClients(Config.GetClients())
-                //.AddRedirectUriValidator<IRedirectUriValidator>()
                 .AddJwtBearerClientAuthentication();
-                //.AddCorsPolicyService<CorsPolicyService>()
-                //.AddProfileService<ProfileService>();
 
             var serviceProvider = services.BuildServiceProvider();
             var _ = new AmbientContext(serviceProvider);
@@ -94,6 +91,19 @@ namespace NetCoreIdentity
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+
+            var supportedCultures = new[]
+            {
+                new CultureInfo("en"),
+                new CultureInfo("ru"),
+                new CultureInfo("kz")
+            };
+            app.UseRequestLocalization(new RequestLocalizationOptions
+            {
+                DefaultRequestCulture = new RequestCulture("ru"),
+                SupportedCultures = supportedCultures,
+                SupportedUICultures = supportedCultures
+            });
 
             app.UseIdentityServer();
 
