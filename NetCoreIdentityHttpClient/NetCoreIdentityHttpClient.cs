@@ -31,6 +31,11 @@ namespace NetCoreIdentityHttpClient
             return await ProcessPostRequest<Result<PagedListResponse<UserDto>>, GetUsersPagedListRequest>("api/users/getUsersPagedList", usersPagedListRequest);
         }
 
+        public async ValueTask<Result<List<UserDto>>> GetUsersByRole(string roleName)
+        {
+            return await ProcessPostRequest<Result<List<UserDto>>, string>("api/users/getByRole", roleName);
+        }
+
         public async ValueTask<Result<UserDto>> GetUserById(Guid userId)
         {
             return await ProcessPostRequest<Result<UserDto>, Guid>("api/users/getById", userId);

@@ -11,6 +11,7 @@ namespace NetCoreIdentityHttpClient
     public interface INetCoreIdentityHttpClient
     {
         ValueTask<Result<PagedListResponse<UserDto>>> GetUsersPagedList(GetUsersPagedListRequest usersPagedListRequest);
+        ValueTask<Result<List<UserDto>>> GetUsersByRole(string roleName);
         ValueTask<Result<UserDto>> GetUserById(Guid userId);
         ValueTask<Result<Guid>> CreateUser(UserDto userDto);
         ValueTask<Result<bool>> UpdateUser(UserDto userDto);

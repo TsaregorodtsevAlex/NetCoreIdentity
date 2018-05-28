@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using NetCoreDataAccess.BaseResponses;
 using NetCoreDomain;
@@ -21,6 +22,13 @@ namespace NetCoreIdentity.Controllers.Api
         public Result<PagedListResponse<UserDto>> GetUsersPagedList([FromBody]GetUsersPagedListRequest request)
         {
             return Executor.GetQuery<GetUsersPagedListQuery>().Process(q => q.Execute(request));
+        }
+
+        [HttpPost]
+        [Route("getByRole")]
+        public Result<List<UserDto>> GetUsersByRole([FromBody] string roleName)
+        {
+            return Executor.GetQuery<GetUsersByRoleQuery>().Process(q => q.Execute(roleName));
         }
 
         [HttpPost]
