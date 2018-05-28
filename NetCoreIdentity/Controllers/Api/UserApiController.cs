@@ -41,7 +41,7 @@ namespace NetCoreIdentity.Controllers.Api
                     return failResult;
                 }
 
-                var user = userDto.ToUser();
+                var user = userDto.CreateUser();
 
                 var roleName = "";
                 if (userDto.Role != null)

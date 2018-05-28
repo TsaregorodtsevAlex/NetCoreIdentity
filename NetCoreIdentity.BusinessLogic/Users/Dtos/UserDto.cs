@@ -24,6 +24,7 @@ namespace NetCoreIdentity.BusinessLogic.Users.Dtos
         public string Email { get; set; }
         public bool IsActive { get; set; }
         public bool IsDeleted { get; set; }
+        public string Password { get; set; }
 
         public RoleDto Role { get; set; }
 
@@ -92,7 +93,7 @@ namespace NetCoreIdentity.BusinessLogic.Users.Dtos
                 activeUserRole.MarkAsDeleted();
             }
 
-            if(Role != null)
+            if (Role != null)
             {
                 var newUserRole = Role.ToUserRole();
 
@@ -105,7 +106,7 @@ namespace NetCoreIdentity.BusinessLogic.Users.Dtos
             }
         }
 
-        public User ToUser()
+        public User CreateUser()
         {
             var user = new User
             {
@@ -121,7 +122,9 @@ namespace NetCoreIdentity.BusinessLogic.Users.Dtos
                 Email = Email?.Trim(),
                 IsActive = IsActive,
                 IsDeleted = IsDeleted,
-                UserRoles = new List<UserRole>()
+                UserRoles = new List<UserRole>(),
+                //todo: Password
+                PasswordHash = Inn
             };
 
             if (Role != null)

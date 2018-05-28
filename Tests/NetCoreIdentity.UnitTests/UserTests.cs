@@ -67,7 +67,7 @@ namespace NetCoreIdentity.UnitTests
                 IsActive = true
             };
 
-            var createdUserIdResult = executor.GetCommand<CreateUserCommand>().Process(c => c.Execute(userDto.ToUser()));
+            var createdUserIdResult = executor.GetCommand<CreateUserCommand>().Process(c => c.Execute(userDto.CreateUser()));
             createdUserIdResult.Should().NotBeNull($"{nameof(createdUserIdResult)} is null");
 
             var createdUserDtoResult = executor.GetQuery<GetUserByIdQuery>().Process(q => q.Execute(createdUserIdResult.Value));
@@ -116,7 +116,7 @@ namespace NetCoreIdentity.UnitTests
                 IsActive = true
             };
 
-            var createdUserIdResult = executor.GetCommand<CreateUserCommand>().Process(c => c.Execute(userDto.ToUser()));
+            var createdUserIdResult = executor.GetCommand<CreateUserCommand>().Process(c => c.Execute(userDto.CreateUser()));
             createdUserIdResult.Should().NotBeNull($"{nameof(createdUserIdResult)} is null");
 
             var createdUserDtoResult = executor.GetQuery<GetUserByIdQuery>().Process(q => q.Execute(createdUserIdResult.Value));
