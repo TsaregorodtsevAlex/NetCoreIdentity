@@ -23,10 +23,10 @@
 
                 <div class="ui-font-family ui-font-size-1-4">Предоставить системе тестирования следующие данные:</div>
                 
-                <div style="position: fixed; top:-99999px !important; left: -99999px;">
+                @*<div style="position: absolute; top:-99999px !important; left: -99999px !important; width: 0 !important;">
                     @if (Model.IdentityScopes.Any())
                     {
-                        <div class="panel panel-default consent-buttons">
+                        <div class="panel panel-default consent-buttons"  style="position: absolute; top:-99999px !important; left: -99999px !important;">
                             <div class="panel-heading ui-colored-font-color ui-font-size-1-4 ui-font-family">
                                 <span class="personal-info-icon">Персональная информация</span>
                             </div>
@@ -38,7 +38,7 @@
                             </ul>
                         </div>
                     }
-                </div>
+                </div>*@
 
                 @if (Model.ResourceScopes.Any())
                 {

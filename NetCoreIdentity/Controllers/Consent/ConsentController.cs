@@ -101,11 +101,22 @@ namespace NetCoreIdentity.Controllers.Consent
                 // if the user consented to some scope, build the response model
                 if (model.ScopesConsented != null && Enumerable.Any<string>(model.ScopesConsented))
                 {
-                    var scopes = model.ScopesConsented;
-                    if (ConsentOptions.EnableOfflineAccess == false)
+                    var scopes = model.ScopesConsented.ToList();
+
+                    if (scopes.Any(s => s == "profile") == false)
                     {
-                        scopes = Enumerable.Where<string>(scopes, x => x != IdentityServer4.IdentityServerConstants.StandardScopes.OfflineAccess);
+                        scopes.Add("profile");
                     }
+
+                    if (scopes.Any(s => s == "openid") == false)
+                    {
+                        scopes.Add("openid");
+                    }
+
+                    //if (ConsentOptions.EnableOfflineAccess == false)
+                    //{
+                    //    scopes = Enumerable.Where<string>(scopes, x => x != IdentityServer4.IdentityServerConstants.StandardScopes.OfflineAccess);
+                    //}
 
                     grantedConsent = new ConsentResponse
                     {
