@@ -20,7 +20,7 @@ namespace NetCoreIdentity.BusinessLogic.Users
                     .AsQueryable()
                     .Include(u => u.UserRoles)
                     .ThenInclude(ur => ur.Role)
-                    .Where(u => u.UserRoles.Any(ur => ur.Role.Name == roleName) && u.IsDeleted == false)
+                    .Where(u => u.UserRoles.Any(ur => ur.Role.Name == roleName && ur.Role.IsDeleted == false && ur.IsDeleted == false) && u.IsDeleted == false)
                     .AsEnumerable()
                     .Select(UserDto.MapFromUser)
                     .ToList();
