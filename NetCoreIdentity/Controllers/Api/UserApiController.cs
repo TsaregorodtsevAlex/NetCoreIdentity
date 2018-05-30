@@ -16,7 +16,6 @@ namespace NetCoreIdentity.Controllers.Api
     [Route("api/users")]
     public class UserApiController : BaseApiController
     {
-        // GET: api/UserApi/5
         [HttpPost]
         [Route("getUsersPagedList")]
         public Result<PagedListResponse<UserDto>> GetUsersPagedList([FromBody]GetUsersPagedListRequest request)

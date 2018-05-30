@@ -46,22 +46,22 @@ namespace NetCoreIdentity.BusinessLogic.Users
         {
             if (request.HasRequestFirstName)
             {
-                usersQuery = usersQuery.Where(u => u.FirstName.Contains(request.FirstName));
+                usersQuery = usersQuery.Where(u => u.FirstName.Trim().ToLower().Contains(request.FirstName.Trim().ToLower()));
             }
 
             if (request.HasRequestMiddleName)
             {
-                usersQuery = usersQuery.Where(u => u.MiddleName.Contains(request.MiddleName));
+                usersQuery = usersQuery.Where(u => u.MiddleName.Trim().ToLower().Contains(request.MiddleName.Trim().ToLower()));
             }
 
             if (request.HasRequestSecondName)
             {
-                usersQuery = usersQuery.Where(u => u.SecondName.Contains(request.SecondName));
+                usersQuery = usersQuery.Where(u => u.SecondName.Trim().ToLower().Contains(request.SecondName.Trim().ToLower()));
             }
 
             if (request.HasRequestPosition)
             {
-                usersQuery = usersQuery.Where(u => u.Position.Contains(request.Position));
+                usersQuery = usersQuery.Where(u => u.Position.Trim().ToLower().Contains(request.Position.Trim().ToLower()));
             }
 
             if (request.HasRequestInn)
@@ -76,7 +76,7 @@ namespace NetCoreIdentity.BusinessLogic.Users
 
             if (request.HasRequestAddress)
             {
-                usersQuery = usersQuery.Where(u => u.Address.Contains(request.Address));
+                usersQuery = usersQuery.Where(u => u.Address.Trim().ToLower().Contains(request.Address.Trim().ToLower()));
             }
 
             if (request.HasRequestIsActive)
