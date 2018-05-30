@@ -9,7 +9,9 @@ using IdentityServer4.Services;
 using IdentityServer4.Stores;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
+using NetCoreIdentity.Controllers.Account;
 
 namespace NetCoreIdentity.Controllers.Consent
 {
@@ -25,16 +27,20 @@ namespace NetCoreIdentity.Controllers.Consent
         private readonly IResourceStore _resourceStore;
         private readonly ILogger<ConsentController> _logger;
 
+        private readonly IStringLocalizer<AccountController> _localizer;
+
         public ConsentController(
             IIdentityServerInteractionService interaction,
             IClientStore clientStore,
             IResourceStore resourceStore,
-            ILogger<ConsentController> logger)
+            ILogger<ConsentController> logger,
+            IStringLocalizer<AccountController> localizer)
         {
             _interaction = interaction;
             _clientStore = clientStore;
             _resourceStore = resourceStore;
             _logger = logger;
+            _localizer = localizer;
         }
 
         /// <summary>
@@ -45,6 +51,11 @@ namespace NetCoreIdentity.Controllers.Consent
         [HttpGet]
         public async Task<IActionResult> Index(string returnUrl)
         {
+            ViewData["AccessData"] = _localizer["AccessData"];
+            ViewData["AccessDataToApplications"] = _localizer["AccessDataToApplications"];
+            ViewData["AccessExaminationsSystem"] = _localizer["AccessExaminationsSystem"];
+            ViewData["AccessButtonAcceptable"] = _localizer["AccessButtonAcceptable"];
+
             var vm = await BuildViewModelAsync(returnUrl);
             if (vm != null)
             {

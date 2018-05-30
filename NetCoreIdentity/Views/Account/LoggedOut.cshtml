@@ -8,15 +8,14 @@
 
 <div class="page-header logged-out">
     <h1>
-        Logout
-        <small>You are now logged out</small>
+        @ViewData["LoggedOut"]
+        <small>@ViewData["LoggedOutText"]</small>
     </h1>
 
     @if (Model.PostLogoutRedirectUri != null)
     {
         <div>
-            Click <a class="PostLogoutRedirectUri" href="@Model.PostLogoutRedirectUri">here</a> to return to the
-            <span>@Model.ClientName</span> application.
+            @ViewData["LoggedOutAction"] <a class="PostLogoutRedirectUri" href="@Model.PostLogoutRedirectUri">@ViewData["LoggedOutFinish"]</a>
         </div>
     }
 

@@ -21,7 +21,7 @@
             <form asp-action="Index" class="consent-form">
                 <input type="hidden" asp-for="ReturnUrl" />
 
-                <div class="ui-font-family ui-font-size-1-4">Предоставить системе тестирования следующие данные:</div>
+                <div class="ui-font-family ui-font-size-1-4">@ViewData["AccessData"]</div>
                 
                 @*<div style="position: absolute; top:-99999px !important; left: -99999px !important; width: 0 !important;">
                     @if (Model.IdentityScopes.Any())
@@ -44,7 +44,7 @@
                 {
                     <div class="panel panel-default consent-buttons">
                         <div class="panel-heading ui-colored-font-color ui-font-size-1-4 ui-font-family">
-                        <h1 class="ui-font-family ui-colored-font-color access-settings-icon">Доступ к приложеням</h1>
+                        <h1 class="ui-font-family ui-colored-font-color access-settings-icon">@ViewData["AccessDataToApplications"]</h1>
                         </div>
                         <ul class="list-group">
                             @foreach (var scope in Model.ResourceScopes)
@@ -66,7 +66,7 @@
                 }*@
 
                 <div class="consent-buttons">
-                    <button name="button" value="yes" class="btn btn-primary ui-button-color ui-button-middle ui-font-family" autofocus>Подтвердить</button>
+                    <button name="button" value="yes" class="btn btn-primary ui-button-color ui-button-middle ui-font-family" autofocus>@ViewData["AccessButtonAcceptable"]</button>
                     @*<button name="button" value="no" class="btn">No, Do Not Allow</button>*@
                     @if (Model.ClientUrl != null)
                     {

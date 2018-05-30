@@ -117,6 +117,18 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AccessButtonAcceptable" xml:space="preserve">
+    <value>Подтвердить</value>
+  </data>
+  <data name="AccessData" xml:space="preserve">
+    <value>Предоставить системе тестирования следующие данные</value>
+  </data>
+  <data name="AccessDataToApplications" xml:space="preserve">
+    <value>Доступ к приложеням</value>
+  </data>
+  <data name="AccessExaminationsSystem" xml:space="preserve">
+    <value>Система тестирования</value>
+  </data>
   <data name="ButtonsEnter" xml:space="preserve">
     <value>Войти</value>
   </data>
@@ -142,5 +154,17 @@
     <value>Вход в систему проверки знаний&lt;br/&gt;
 Пожалуйста введите свои учетные данные (иин и пароль),&lt;br/&gt;
 что бы получить доступ к системе тестирования</value>
+  </data>
+  <data name="LoggedOut" xml:space="preserve">
+    <value>Выход</value>
+  </data>
+  <data name="LoggedOutAction" xml:space="preserve">
+    <value>Для завершения выхода из системы, пожалуйста, перейдите по ссылке</value>
+  </data>
+  <data name="LoggedOutFinish" xml:space="preserve">
+    <value>вытйти из системы</value>
+  </data>
+  <data name="LoggedOutText" xml:space="preserve">
+    <value>Вы находитесь на странице выхода их системы</value>
   </data>
 </root>

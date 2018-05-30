@@ -117,30 +117,54 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AccessButtonAcceptable" xml:space="preserve">
+    <value>Растау</value>
+  </data>
+  <data name="AccessData" xml:space="preserve">
+    <value>Сынақ жүйесіне келесі деректерді енгізіңіз</value>
+  </data>
+  <data name="AccessDataToApplications" xml:space="preserve">
+    <value>Тіркемелерге қатынасу</value>
+  </data>
+  <data name="AccessExaminationsSystem" xml:space="preserve">
+    <value>Тестілеу жүйесі</value>
+  </data>
   <data name="ButtonsEnter" xml:space="preserve">
-    <value>Войти</value>
+    <value>Жүйеге кіріңіз</value>
   </data>
   <data name="CommonCredentinalsNotValid" xml:space="preserve">
-    <value>Логин или пароль не верны</value>
+    <value>Кіру немесе пароль дұрыс емес</value>
   </data>
   <data name="CommonEnter" xml:space="preserve">
-    <value>Вход</value>
+    <value>Жүйеге кіріңіз</value>
   </data>
   <data name="CommonINN" xml:space="preserve">
     <value>ИИН</value>
   </data>
   <data name="CommonInterfaceLanguage" xml:space="preserve">
-    <value>Язык интерфейса</value>
+    <value>Интерфейс тілі</value>
   </data>
   <data name="CommonPassword" xml:space="preserve">
-    <value>Пароль</value>
+    <value>Құпия сөз</value>
   </data>
   <data name="CommonRememberMe" xml:space="preserve">
-    <value>Запомнить меня</value>
+    <value>мені есте сақтау</value>
   </data>
   <data name="CommonWelcomeText" xml:space="preserve">
-    <value>Вход в систему проверки знаний&lt;br/&gt;
-Пожалуйста введите свои учетные данные (иин и пароль),&lt;br/&gt;
-что бы получить доступ к системе тестирования</value>
+    <value>Білімді тексеру жүйесіне кіріңіз &lt;br/&gt;
+Тіркелгі деректеріңізді (пайдаланушы аты мен құпия сөз) енгізіңіз, &lt;br/&gt;
+бұл тестілеу жүйесіне кіруге мүмкіндік береді</value>
+  </data>
+  <data name="LoggedOut" xml:space="preserve">
+    <value>Шығу</value>
+  </data>
+  <data name="LoggedOutAction" xml:space="preserve">
+    <value>Шығуды аяқтау үшін мұнда басыңыз</value>
+  </data>
+  <data name="LoggedOutFinish" xml:space="preserve">
+    <value>шығыңыз</value>
+  </data>
+  <data name="LoggedOutText" xml:space="preserve">
+    <value>Сіз жүйенің шығу бетіндесіз</value>
   </data>
 </root>

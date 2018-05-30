@@ -117,30 +117,54 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AccessButtonAcceptable" xml:space="preserve">
+    <value>Confirm</value>
+  </data>
+  <data name="AccessData" xml:space="preserve">
+    <value>Provide the following data to the testing system</value>
+  </data>
+  <data name="AccessDataToApplications" xml:space="preserve">
+    <value>Access to attachments</value>
+  </data>
+  <data name="AccessExaminationsSystem" xml:space="preserve">
+    <value>Testing system</value>
+  </data>
   <data name="ButtonsEnter" xml:space="preserve">
-    <value>Войти (en)</value>
+    <value>Enter</value>
   </data>
   <data name="CommonCredentinalsNotValid" xml:space="preserve">
-    <value>Логин или пароль не верны</value>
+    <value>Login or password is incorrect</value>
   </data>
   <data name="CommonEnter" xml:space="preserve">
-    <value>Вход (en)</value>
+    <value>Enter</value>
   </data>
   <data name="CommonINN" xml:space="preserve">
-    <value>ИИН</value>
+    <value>IIN</value>
   </data>
   <data name="CommonInterfaceLanguage" xml:space="preserve">
     <value>System language</value>
   </data>
   <data name="CommonPassword" xml:space="preserve">
-    <value>Пароль</value>
+    <value>Password</value>
   </data>
   <data name="CommonRememberMe" xml:space="preserve">
-    <value>Запомнить меня</value>
+    <value>Remember me</value>
   </data>
   <data name="CommonWelcomeText" xml:space="preserve">
-    <value>Вход в систему проверки знаний&lt;br/&gt;
-Пожалуйста введите свои учетные данные (иин и пароль),&lt;br/&gt;
-что бы получить доступ к системе тестирования</value>
+    <value>Login to the knowledge check system &lt;br/&gt;
+Please enter your credentials (username and password), &lt;br/&gt;
+that would gain access to the testing system</value>
+  </data>
+  <data name="LoggedOut" xml:space="preserve">
+    <value>Exit</value>
+  </data>
+  <data name="LoggedOutAction" xml:space="preserve">
+    <value>To complete logging out, please click here</value>
+  </data>
+  <data name="LoggedOutFinish" xml:space="preserve">
+    <value>log out</value>
+  </data>
+  <data name="LoggedOutText" xml:space="preserve">
+    <value>You are on the exit page of their system</value>
   </data>
 </root>

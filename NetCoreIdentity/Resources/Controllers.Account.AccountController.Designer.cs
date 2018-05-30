@@ -61,6 +61,42 @@ namespace NetCoreIdentity.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Подтвердить.
+        /// </summary>
+        internal static string AccessButtonAcceptable {
+            get {
+                return ResourceManager.GetString("AccessButtonAcceptable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Предоставить системе тестирования следующие данные.
+        /// </summary>
+        internal static string AccessData {
+            get {
+                return ResourceManager.GetString("AccessData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Доступ к приложеням.
+        /// </summary>
+        internal static string AccessDataToApplications {
+            get {
+                return ResourceManager.GetString("AccessDataToApplications", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Система тестирования.
+        /// </summary>
+        internal static string AccessExaminationsSystem {
+            get {
+                return ResourceManager.GetString("AccessExaminationsSystem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Войти.
         /// </summary>
         internal static string ButtonsEnter {
@@ -131,6 +167,42 @@ namespace NetCoreIdentity.Resources {
         internal static string CommonWelcomeText {
             get {
                 return ResourceManager.GetString("CommonWelcomeText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Выход.
+        /// </summary>
+        internal static string LoggedOut {
+            get {
+                return ResourceManager.GetString("LoggedOut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Для завершения выхода из системы, пожалуйста, перейдите по ссылке.
+        /// </summary>
+        internal static string LoggedOutAction {
+            get {
+                return ResourceManager.GetString("LoggedOutAction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to вытйти из системы.
+        /// </summary>
+        internal static string LoggedOutFinish {
+            get {
+                return ResourceManager.GetString("LoggedOutFinish", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Вы находитесь на странице выхода их системы.
+        /// </summary>
+        internal static string LoggedOutText {
+            get {
+                return ResourceManager.GetString("LoggedOutText", resourceCulture);
             }
         }
     }
