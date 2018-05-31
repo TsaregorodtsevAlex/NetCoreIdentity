@@ -97,7 +97,7 @@ namespace NetCoreIdentity
             {
                 new CultureInfo("en"),
                 new CultureInfo("ru"),
-                new CultureInfo("kz")
+                new CultureInfo("kk")
             };
             app.UseRequestLocalization(new RequestLocalizationOptions
             {

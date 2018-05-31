@@ -155,6 +155,9 @@
 Тіркелгі деректеріңізді (пайдаланушы аты мен құпия сөз) енгізіңіз, &lt;br/&gt;
 бұл тестілеу жүйесіне кіруге мүмкіндік береді</value>
   </data>
+  <data name="CommonWrongCreds" xml:space="preserve">
+    <value>Пайдаланушы аты немесе құпия сөз жарамсыз</value>
+  </data>
   <data name="LoggedOut" xml:space="preserve">
     <value>Шығу</value>
   </data>

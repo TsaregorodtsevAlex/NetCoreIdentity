@@ -155,6 +155,9 @@
 Пожалуйста введите свои учетные данные (иин и пароль),&lt;br/&gt;
 что бы получить доступ к системе тестирования</value>
   </data>
+  <data name="CommonWrongCreds" xml:space="preserve">
+    <value>Неверные логин или пароль</value>
+  </data>
   <data name="LoggedOut" xml:space="preserve">
     <value>Выход</value>
   </data>

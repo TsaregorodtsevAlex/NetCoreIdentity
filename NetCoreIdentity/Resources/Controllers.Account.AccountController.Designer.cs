@@ -171,6 +171,15 @@ namespace NetCoreIdentity.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Неверные логин или пароль.
+        /// </summary>
+        internal static string CommonWrongCreds {
+            get {
+                return ResourceManager.GetString("CommonWrongCreds", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Выход.
         /// </summary>
         internal static string LoggedOut {

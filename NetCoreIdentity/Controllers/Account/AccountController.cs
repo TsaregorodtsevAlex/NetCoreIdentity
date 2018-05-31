@@ -132,6 +132,9 @@ namespace NetCoreIdentity.Controllers.Account
 
             ViewData["CommonInterfaceLanguage"] = _localizer["CommonInterfaceLanguage"];
 
+            ViewData["CommonWrongCreds"] = _localizer["CommonWrongCreds"];
+            ViewData["CommonWrongCreds"] = _localizer["CommonWrongCreds"];
+
             ViewData["ReturnUrl"] = _httpContextAccessor.HttpContext.Request.Query.Keys.Contains("returnUrl") ? System.Net.WebUtility.UrlEncode(_httpContextAccessor.HttpContext.Request.Query["returnUrl"].ToString()) : string.Empty;
 
             if (vm.IsExternalLoginOnly)
@@ -150,6 +153,20 @@ namespace NetCoreIdentity.Controllers.Account
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginInputModel model, string button)
         {
+            ViewData["CommonEnter"] = _localizer["CommonEnter"];
+            ViewData["CommonWelcomeText"] = _localizer["CommonWelcomeText"];
+            ViewData["ButtonsEnter"] = _localizer["ButtonsEnter"];
+            ViewData["CommonRememberMe"] = _localizer["CommonRememberMe"];
+            ViewData["CommonINN"] = _localizer["CommonINN"];
+            ViewData["CommonPassword"] = _localizer["CommonPassword"];
+            ViewData["CommonCredentinalsNotValid"] = _localizer["CommonCredentinalsNotValid"];
+
+            ViewData["CommonInterfaceLanguage"] = _localizer["CommonInterfaceLanguage"];
+
+            ViewData["CommonWrongCreds"] = _localizer["CommonWrongCreds"];
+
+            ViewData["ReturnUrl"] = _httpContextAccessor.HttpContext.Request.Query.Keys.Contains("returnUrl") ? System.Net.WebUtility.UrlEncode(_httpContextAccessor.HttpContext.Request.Query["returnUrl"].ToString()) : string.Empty;
+
             if (button != "login")
             {
                 // the user clicked the "cancel" button

@@ -155,6 +155,9 @@
 Please enter your credentials (username and password), &lt;br/&gt;
 that would gain access to the testing system</value>
   </data>
+  <data name="CommonWrongCreds" xml:space="preserve">
+    <value>Incorrect login or password</value>
+  </data>
   <data name="LoggedOut" xml:space="preserve">
     <value>Exit</value>
   </data>
