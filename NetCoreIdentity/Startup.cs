@@ -13,6 +13,7 @@ using NetCoreDI;
 using NetCoreIdentity.BusinessLogic;
 using NetCoreIdentity.DataAccess;
 using Microsoft.AspNetCore.Localization;
+using System.IO;
 
 namespace NetCoreIdentity
 {
@@ -69,7 +70,7 @@ namespace NetCoreIdentity
                         options.Authentication.CookieSlidingExpiration = false;
                     }
                 )
-                .AddSigningCredential(new X509Certificate2(@"C:\localhost.pfx", "123"))
+                .AddSigningCredential(new X509Certificate2(Path.GetFullPath("wwwroot/Certs/localhost.pfx"), "123"))
                 .AddCustomUserStore()
                 .AddInMemoryIdentityResources(Config.GetIdentityResources())
                 .AddInMemoryApiResources(Config.GetApiResources())
@@ -110,6 +111,13 @@ namespace NetCoreIdentity
             app.UseStaticFiles();
 
             app.UseMvcWithDefaultRoute();
+
+
+            //накатим миграцию при первом пуске приложения            
+            using (var db = AmbientContext.Current.Resolver.ResolveObject<NetCoreIdentityDbContext>())
+            {
+                db.Database.Migrate();
+            }
         }
     }
 }

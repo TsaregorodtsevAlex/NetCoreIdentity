@@ -16,9 +16,9 @@ namespace NetCoreIdentity
             WebHost.CreateDefaultBuilder(args)
                 .UseKestrel(options =>
                 {
-                    options.Listen(IPAddress.Loopback, 44315, listenOptions =>
+                    options.Listen(IPAddress.Any, 44315, listenOptions =>
                     {
-                        listenOptions.UseHttps(@"C:\localhost.pfx", "123");
+                        listenOptions.UseHttps(Path.GetFullPath("wwwroot/Certs/localhost.pfx"), "123");
                     });
                 })
                 .UseContentRoot(Directory.GetCurrentDirectory())
