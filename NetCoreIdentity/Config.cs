@@ -37,7 +37,7 @@ namespace NetCoreIdentity
                     //AllowAccessTokensViaBrowser = true,
                     RedirectUris = new List<string>
                     {
-                        "https://localhost:44317/signin-oidc"
+                        "https://192.168.45.99:44317/signin-oidc"
                     },
                     AllowedScopes =
                     {
@@ -49,7 +49,7 @@ namespace NetCoreIdentity
                     },
                     AllowedCorsOrigins = new List<string>
                     {
-                        "https://localhost:44317"
+                        "https://192.168.45.99:44317"
                     },
                     AlwaysSendClientClaims = true,
                     AlwaysIncludeUserClaimsInIdToken = true,
@@ -60,7 +60,7 @@ namespace NetCoreIdentity
                     },
                     PostLogoutRedirectUris = new List<string>
                     {
-                        "https://localhost:44317/signout-callback-oidc"
+                        "https://192.168.45.99:44317/signout-callback-oidc"
                     }
                 }
             };

@@ -38,7 +38,6 @@
   <ItemGroup>
     <Folder Include="wwwroot\images\icon\" />
     <Folder Include="wwwroot\images\flags\" />
-    <Folder Include="wwwroot\Certs\" />
   </ItemGroup>
 
   <ItemGroup>

@@ -70,7 +70,8 @@ namespace NetCoreIdentity
                         options.Authentication.CookieSlidingExpiration = false;
                     }
                 )
-                .AddSigningCredential(new X509Certificate2(Path.GetFullPath("wwwroot/Certs/localhost.pfx"), "123"))
+                .AddSigningCredential(new X509Certificate2(Path.GetFullPath("wwwroot/Certs/vss.pfx"), "1234"))
+                //.AddSigningCredential(new X509Certificate2(Path.GetFullPath("wwwroot/Certs/localhost.pfx"), "123"))
                 .AddCustomUserStore()
                 .AddInMemoryIdentityResources(Config.GetIdentityResources())
                 .AddInMemoryApiResources(Config.GetApiResources())
