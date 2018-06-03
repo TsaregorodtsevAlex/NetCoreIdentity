@@ -1,0 +1,1 @@
+dotnet .\NetCoreIdentity.dll /AppSettings:Url https://localhost /AppSettings:Port 44315 /AppSettings:CertUrl wwwroot/Certs/localhost.pfx /AppSettings:CertPass 123

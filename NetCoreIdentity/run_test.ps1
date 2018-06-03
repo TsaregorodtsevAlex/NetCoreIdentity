@@ -1,0 +1,1 @@
+dotnet .\NetCoreIdentity.dll /AppSettings:Url https://192.168.45.99 /AppSettings:Port 44315 /AppSettings:CertUrl wwwroot/Certs/vss.pfx /AppSettings:CertPass 1234

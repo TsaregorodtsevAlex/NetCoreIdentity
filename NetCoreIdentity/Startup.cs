@@ -13,18 +13,22 @@ using NetCoreDI;
 using NetCoreIdentity.BusinessLogic;
 using NetCoreIdentity.DataAccess;
 using Microsoft.AspNetCore.Localization;
-using System.IO;
 
 namespace NetCoreIdentity
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        private const string CertUrlParameter = "AppSettings:CertUrl";
+        private const string CertPassParameter = "AppSettings:CertPass";
+
+        public Startup(IConfiguration configuration, IHostingEnvironment environment)
         {
             Configuration = configuration;
+            Environment = environment;
         }
 
         public IConfiguration Configuration { get; }
+        public IHostingEnvironment Environment { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -33,8 +37,7 @@ namespace NetCoreIdentity
 
             services
                 //.AddDbContext<NetCoreIdentityDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("NetCoreIdentityServer")))
-                .AddDbContext<NetCoreIdentityDbContext>(options =>
-                    options.UseNpgsql(Configuration.GetConnectionString("NetCoreIdentityServer")))
+                .AddDbContext<NetCoreIdentityDbContext>(options => options.UseNpgsql(Configuration.GetConnectionString("NetCoreIdentityServer")))
                 .AddTransient<DbContext, NetCoreIdentityDbContext>()
                 .AddTransient<IExecutor, Executor>()
                 .AddTransient<IAmbientContext, AmbientContext>()
@@ -63,6 +66,14 @@ namespace NetCoreIdentity
 
             services.AddMvc();
 
+            var certUrl = string.IsNullOrEmpty(Configuration[CertUrlParameter])
+                ? "wwwroot/Certs/localhost.pfx"
+                : Configuration[CertUrlParameter];
+
+            var certPass = string.IsNullOrEmpty(Configuration[CertPassParameter])
+                ? "123"
+                : Configuration[CertPassParameter];
+
             services.AddIdentityServer(
                     options =>
                     {
@@ -70,8 +81,7 @@ namespace NetCoreIdentity
                         options.Authentication.CookieSlidingExpiration = false;
                     }
                 )
-                .AddSigningCredential(new X509Certificate2(Path.GetFullPath("wwwroot/Certs/vss.pfx"), "1234"))
-                //.AddSigningCredential(new X509Certificate2(Path.GetFullPath("wwwroot/Certs/localhost.pfx"), "123"))
+                .AddSigningCredential(new X509Certificate2($"{certUrl}", certPass))
                 .AddCustomUserStore()
                 .AddInMemoryIdentityResources(Config.GetIdentityResources())
                 .AddInMemoryApiResources(Config.GetApiResources())

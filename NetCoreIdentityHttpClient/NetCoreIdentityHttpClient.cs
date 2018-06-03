@@ -4,7 +4,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
-using NetCoreDataAccess.BaseRequests;
+using Microsoft.Extensions.Configuration;
 using NetCoreDataAccess.BaseResponses;
 using NetCoreDomain;
 using NetCoreHttpClient;
@@ -19,9 +19,10 @@ namespace NetCoreIdentityHttpClient
     {
         private readonly NetCoreBaseHttpClient _httpClient;
 
-        public NetCoreIdentityHttpClient(IHttpContextAccessor httpContextAccessor)
+        public NetCoreIdentityHttpClient(IHttpContextAccessor httpContextAccessor, IConfigurationRoot configurationRoot)
         {
-            var configuration = new NetCoreIdentityHttpClientConfiguration { Uri = "https://localhost:44315/" };
+            var configuration = new NetCoreIdentityHttpClientConfiguration();
+            configurationRoot.GetSection(nameof(NetCoreIdentityHttpClientConfiguration)).Bind(configuration);
             _httpClient = new NetCoreBaseHttpClient(httpContextAccessor);
             _httpClient.ConfigureServiceHttpClient(new NetCoreHttpClientConfigurationOptions { HttpClientBaseAddress = configuration.Uri });
         }
@@ -85,7 +86,6 @@ namespace NetCoreIdentityHttpClient
             var byteContent = new ByteArrayContent(buffer);
             byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
-            //var httpClientresponse = httpClient.PostAsync(apiUri, byteContent).Result;
             var httpClientresponse = func(httpClient, byteContent);
             if (!httpClientresponse.IsSuccessStatusCode)
             {
@@ -112,39 +112,6 @@ namespace NetCoreIdentityHttpClient
             var response = JsonConvert.DeserializeObject<TResponse>(jsonResponse);
 
             return response;
-        }
-
-        public async Task<Result<PagedListResponse<UserDto>>> GetAllUsers()
-        {
-            var client = await _httpClient.GetHttpClient();
-            var request = new GetUsersPagedListRequest
-            {
-                Skip = 0,
-                Take = 10,
-                Sortings = new List<SortedListRequest>
-                {
-                    new SortedListRequest
-                    {
-                        FieldName = "FirstName",
-                        Direction = SortDirection.Descending
-                    }
-                }
-            };
-            var jsonRequest = JsonConvert.SerializeObject(request);
-
-            var buffer = System.Text.Encoding.UTF8.GetBytes(jsonRequest);
-            var byteContent = new ByteArrayContent(buffer);
-            byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-
-            var response = client.PostAsync("api/users/getUsersPagedList", byteContent).Result;
-            if (!response.IsSuccessStatusCode)
-            {
-                throw new Exception("Error");
-            }
-
-            var jsonResponse = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-            var identityUsers = JsonConvert.DeserializeObject<Result<PagedListResponse<UserDto>>>(jsonResponse);
-            return identityUsers;
         }
     }
 }
