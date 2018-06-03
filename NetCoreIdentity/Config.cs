@@ -6,7 +6,7 @@ namespace NetCoreIdentity
 {
     public static class Config
     {
-        public static IEnumerable<IdentityResource> GetIdentityResources() 
+        public static IEnumerable<IdentityResource> GetIdentityResources()
         {
             return new List<IdentityResource>
             {
@@ -23,8 +23,12 @@ namespace NetCoreIdentity
             };
         }
 
-        public static List<Client> GetClients() 
+        public static List<Client> GetClients(bool isProduction)
         {
+            var redirectUrl = isProduction
+                ? "https://192.168.45.99:44317"
+                : "https://localhost:44317";
+
             return new List<Client>
             {
                 new Client
@@ -37,7 +41,7 @@ namespace NetCoreIdentity
                     //AllowAccessTokensViaBrowser = true,
                     RedirectUris = new List<string>
                     {
-                        "https://192.168.45.99:44317/signin-oidc"
+                        $"{redirectUrl}/signin-oidc"
                     },
                     AllowedScopes =
                     {
@@ -49,7 +53,7 @@ namespace NetCoreIdentity
                     },
                     AllowedCorsOrigins = new List<string>
                     {
-                        "https://192.168.45.99:44317"
+                        $"{redirectUrl}"
                     },
                     AlwaysSendClientClaims = true,
                     AlwaysIncludeUserClaimsInIdToken = true,
@@ -60,7 +64,7 @@ namespace NetCoreIdentity
                     },
                     PostLogoutRedirectUris = new List<string>
                     {
-                        "https://192.168.45.99:44317/signout-callback-oidc"
+                        $"{redirectUrl}/signout-callback-oidc"
                     }
                 }
             };

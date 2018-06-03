@@ -85,7 +85,7 @@ namespace NetCoreIdentity
                 .AddCustomUserStore()
                 .AddInMemoryIdentityResources(Config.GetIdentityResources())
                 .AddInMemoryApiResources(Config.GetApiResources())
-                .AddInMemoryClients(Config.GetClients())
+                .AddInMemoryClients(Config.GetClients(Environment.IsProduction()))
                 .AddJwtBearerClientAuthentication();
 
             var serviceProvider = services.BuildServiceProvider();
